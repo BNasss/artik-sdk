@@ -27,7 +27,32 @@ console.log('Public IP: ' + network.get_current_ip());
 ##get_online_status
 
 ```javascript
-get_online_status(function(String status))
+Boolean get_online_status()
+```
+
+**Description**
+
+Get the web connectivity status.
+
+**Parameters**
+
+None.
+
+**Return value**
+
+*Boolean* containing the web connectivity status.
+
+**Example**
+
+```javascript
+console.log('Connectivity status: ' + network.get_online_status());
+```
+#Events
+
+## connectivity-change
+
+```javascript
+network.on("connectivity-change", function(Boolean))
 ```
 
 **Description**
@@ -35,24 +60,12 @@ get_online_status(function(String status))
 Get notified of web connectivity changes.
 
 **Parameters**
-
- - *function(String)* callback function called whenever a change occurs on the network 
-connectivity of the device. The status is passed as a JSON formatted *String* as shown below:
-
-```javascript
-{
-	"online_status": "0"
-}
-```
-
-**Return value**
-
-None.
+ - *Boolean* containing the web connectivity status.
 
 **Example**
 
 ```javascript
-network.get_online_status(function(status) {
+network.on("connectivity-change", function(status) {
 	console.log('New connectivity status: ' + status);
 });
 ```
