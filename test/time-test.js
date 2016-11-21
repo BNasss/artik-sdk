@@ -80,6 +80,14 @@ testCase('Time', function() {
 		});
 	});
 
+	testCase('#set_time - Should be throw if the argument is invalid', function() {
+		assertions('Should be throw if the argument is invalid', function(done) {
+			assert.throws(function() { module.set_time() }, TypeError, "Wrong number of arguments");
+			assert.throws(function() { module.set_time(15) }, TypeError, "Invalid argument");
+			done();
+		});
+	});
+
 	testCase('#create_alarm_date()', function() {
 
 		assertions('create alarm ', function(done) {
