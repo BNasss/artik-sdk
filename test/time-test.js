@@ -115,7 +115,7 @@ testCase('Time', function() {
 		});
 
 		assertions('Syncs time with the NTP server', function() {
-
+			this.enableTimeouts(false);
 			var new_date  = module.get_time();
 			new_date.setUTCSeconds(new_date.getUTCSeconds()+120);
 			module.set_time(new_date);
