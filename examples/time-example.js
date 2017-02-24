@@ -4,23 +4,39 @@
  *
  *   $ systemctl stop systemd-timesyncd
  */
-const artik = require('../lib/artik-sdk');
+var time    = require('../src/time.js');
 
-var module = artik.time();
-var alarm = null;
+var module  = new time();
+var alarm_1 = null;
+var alarm_2 = null;
 var hostname = "fr.pool.ntp.org";
 
 console.log("Synchronizing with NTP server " + hostname);
 console.log(module.sync_ntp(hostname) == 0 ? "Sync successful": "Sync failed");
 
-var new_date = module.get_time();
-console.log("Current time is " + new_date.toUTCString());
-new_date.setUTCSeconds(new_date.getUTCSeconds() + 15);
-console.log("Set alarm to trigger at " + new_date.toUTCString());
+var curr_date = module.get_time();
+var alarm1_date = module.get_time();
+var alarm2_date = module.get_time();
+
+alarm1_date.setUTCSeconds(alarm1_date.getUTCSeconds() + 5);
+alarm2_date.setUTCSeconds(alarm2_date.getUTCSeconds() + 20);
+
+console.log("Current time is " + curr_date.toUTCString());
+console.log("Set alarm 1 to trigger at " + alarm1_date.toUTCString());
+console.log("Set alarm 2 to trigger at " + alarm2_date.toUTCString());
 
 try {
-    alarm = module.create_alarm_date(new_date.getTimezoneOffset() / 60, new_date, function() {
-        console.log("Alarm triggered, it is " + module.get_time().toUTCString());
+    alarm_1 = module.create_alarm_date(alarm1_date.getTimezoneOffset() / 60, alarm1_date, function() {
+        console.log("Alarm 1 triggered, it is " + module.get_time().toUTCString());
+    });
+} catch (err) {
+    console.log("[ERROR] create_alarm : " + err);
+    process.exit(-1);
+}
+
+try {
+    alarm_2 = module.create_alarm_second(alarm2_date.getTimezoneOffset() / 60, 20, function() {
+        console.log("Alarm 2 triggered, it is " + module.get_time().toUTCString());
         process.exit(0);
     });
 } catch (err) {
@@ -29,8 +45,5 @@ try {
 }
 
 process.on('SIGINT', () => {
-    if (alarm)
-	alarm.cancel();
-
     process.exit(-1);
 });

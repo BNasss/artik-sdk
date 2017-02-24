@@ -8,11 +8,11 @@ var assertions = require('mocha').it;
 var assert     = require('chai').assert;
 var validator  = require('validator');
 var exec       = require('child_process').execSync;
-var artik      = require('../lib/artik-sdk');
+var time       = require('../src/time.js');
 
+var module     = new time();
 
 /* Test Specific Includes */
-var module   = artik.time();
 var platform, format_date, time_zone;
 var end      = 1;
 var valtime  = 0;
@@ -23,24 +23,8 @@ var platform, str;
 testCase('Time', function() {
 
 	pre(function() {
-		const name = artik.get_platform_name();
 
-		if(name == 'Artik 520') {
-			platform = require('../src/platform/artik520');
-			format_date = platform.ARTIK_A5_TIME.DFORMAT_DATE;
-			time_zone = platform.ARTIK_A5_TIME.ZONE.GMT2;
-			str = module.get_time_str(platform.ARTIK_A5_TIME.DFORMAT_DATE, platform.ARTIK_A5_TIME.ZONE.GMT2);
-		} else if(name == 'Artik 1020') {
-			platform = require('../src/platform/artik1020');
-			format_date = platform.ARTIK_A10_TIME.DFORMAT_DATE;
-			time_zone = platform.ARTIK_A10_TIME.ZONE.GMT2;
-			str = module.get_time_str(platform.ARTIK_A10_TIME.DFORMAT_DATE, platform.ARTIK_A10_TIME.ZONE.GMT2);
-		} else if(name == 'Artik 710') {
-			platform = require('../src/platform/artik710');
-			format_date = platform.ARTIK_A710_TIME.DFORMAT_DATE;
-			time_zone = platform.ARTIK_A710_TIME.ZONE.GMT2;
-			str = module.get_time_str(platform.ARTIK_A710_TIME.DFORMAT_DATE, platform.ARTIK_A710_TIME.ZONE.GMT2);
-		}
+		str = module.get_time_str(time.ARTIK_TIME.DFORMAT_DATE, time.ARTIK_TIME.ZONE.GMT2);
 
 		exec("systemctl stop systemd-timesyncd.service");
 
@@ -82,7 +66,6 @@ testCase('Time', function() {
 
 	testCase('#set_time - Should be throw if the argument is invalid', function() {
 		assertions('Should be throw if the argument is invalid', function(done) {
-			assert.throws(function() { module.set_time() }, TypeError, "Wrong number of arguments");
 			assert.throws(function() { module.set_time(15) }, TypeError, "Invalid argument");
 			done();
 		});

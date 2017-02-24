@@ -50,6 +50,7 @@
     "src/lwm2m.js",
     "src/mqtt.js",
     "src/network.js",
+    "src/time.js",
     "src/bluetooth/agent.js",
     "src/bluetooth/bluetooth.js",
     "src/bluetooth/gattclient.js",
