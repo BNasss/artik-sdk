@@ -1,16 +1,44 @@
 var websocket = require('../src/websocket');
 var artik = require('../lib/artik-sdk');
+var opt = require('getopt'); 
 
-var auth_token = '';
-var device_id = '';
-var message_data = '';
-var host = "api.artik.cloud";
-var uri = "/v1.1/websocket?ack=true";
-var port = 443;
-var ssl_connection = 2;
+var host = "echo.websocket.org";
+var uri = "/";
+var port = 80;
+var ssl_connection = 0;
 var use_se = false;
-var register_message = '{"sdid":"' + device_id + '","Authorization":"bearer ' + auth_token + '","type":"register"}';
-var test_send_message = '{"data": ' + message_data + ' ,"sdid": "' + device_id +  '","type": "message"}';
+var test_message = 'ping';
+
+try{
+    opt.setopt("t:d:m:s");
+} catch (e){
+   switch (e.type) {
+        case "unknown":
+            console.log("Unknown option: -%s", e.opt);
+            console.log("Usage: node websocket-example.js [-m <test message>] [-s for enabling SDR (Secure Device Registered) test]");
+            break;
+        case "required":
+            console.log("Required parameter for option: -%s", e.opt);
+            break;
+        default:
+            console.dir(e);
+    }
+    process.exit(0);
+}
+
+opt.getopt(function (o, p){
+    switch(o){
+    case 'm':
+        test_message = String(p);
+        break;
+    case 's':
+        use_se = true;
+        break;
+    default:
+        console.log("Usage: node websocket-example.js [-m <test message>] [-s for enabling SDR (Secure Device Registered) test]");
+        process.exit(0);
+    }
+});
 
 var conn = new websocket(host, uri, port, ssl_connection, use_se);
 
@@ -18,7 +46,7 @@ conn.open_stream();
 
 conn.on('connected', function(result) {
 	console.log("Connect result: " + result);
-	conn.write_stream(register_message);
+	conn.write_stream(test_message);
 });
 
 conn.on('receive', function(message) {
@@ -30,10 +58,6 @@ process.on('SIGINT', function () {
     conn.close_stream();
     process.exit(0);
 });
-
-setInterval(function () {
-	conn.write_stream(test_send_message);
-}, 1000);
 
 setTimeout(function () {
     console.log("Time out, close stream");

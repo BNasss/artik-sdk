@@ -1,11 +1,49 @@
 var cloud = require('../src/cloud');
+var opt = require('getopt'); 
 
-var access_token = '';
-var device_id = '';
+var access_token = "";
+var device_id = "";
+var test_message = '';
 var use_se = false;
-var test_message = '{"state": true}';
 
-var conn = new cloud(access_token);
+var conn = new cloud();
+
+try{
+    opt.setopt("t:d:m:s");
+} catch (e){
+   switch (e.type) {
+        case "unknown":
+            console.log("Unknown option: -%s", e.opt);
+            console.log("Usage: node cloud-websocket-example.js [-t <access token>] [-d <device id>] [-m <JSON type test message>] [-s for enabling SDR (Secure Device Registered) test]");
+            break;
+        case "required":
+            console.log("Required parameter for option: -%s", e.opt);
+            break;
+        default:
+            console.dir(e);
+    }
+    process.exit(0);
+}
+
+opt.getopt(function (o, p){
+    switch(o){
+    case 't':
+        access_token = String(p);
+        break;
+    case 'd':
+        device_id = String(p);
+        break;
+    case 'm':
+        test_message = String(p);
+        break;
+    case 's':
+        use_se = true;
+        break;
+    default:
+        console.log("Usage: node cloud-websocket-example.js [-t <access token>] [-d <device id>] [-m <JSON type test message>] [-s for enabling SDR (Secure Device Registered) test]");
+        process.exit(0);
+    }
+});
 
 conn.on('receive', function(message) {
 	console.log("received: " + message);

@@ -89,7 +89,8 @@
     "examples/lwm2m-example.js"
   ],
   "dependencies": {
-    "colors": "^1.1.2"
+    "colors": "^1.1.2",
+    "getopt": "^0.1.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
