@@ -13,10 +13,10 @@ var artik      = require('../lib/artik-sdk');
 
 /* Test Specific Includes */
 var cloud             = require('../src/cloud');
-var auth_token        = process.env.WEBSOCKET_ACCESS_TOKEN;
-var device_id         = process.env.WEBSOCKET_DEVICE_ID;
-var use_se            = false;
-var test_message      = process.env.WEBSOCKET_MESSAGE;
+var auth_token        = process.env.WEBSOCKET_ENABLE_SDR == 1 ? process.env.WEBSOCKET_SDR_ACCESS_TOKEN : process.env.WEBSOCKET_ACCESS_TOKEN;
+var device_id         = process.env.WEBSOCKET_ENABLE_SDR == 1 ? process.env.WEBSOCKET_SDR_DEVICE_ID : process.env.WEBSOCKET_DEVICE_ID;
+var use_se            = process.env.WEBSOCKET_ENABLE_SDR == 1 ? true : false;
+var test_message      = process.env.WEBSOCKET_ENABLE_SDR == 1 ? process.env.WEBSOCKET_SDR_MESSAGE : process.env.WEBSOCKET_MESSAGE;
 
 var conn = new cloud();
 
@@ -34,7 +34,7 @@ testCase('Cloud-Websockets', function() {
 		assertions('Return callback event when the websocket is connected', function(done) {
 
 			conn.once('receive', function(message) {
-				console.log("Receive: " + message);
+				console.log("received: " + message);
 				assert.isNotNull(message);
 				assert.equal(JSON.parse(message).data.code, "200");
 				assert.equal(JSON.parse(message).data.message, "OK");
@@ -54,12 +54,13 @@ testCase('Cloud-Websockets', function() {
                 this.skip();
 
 			conn.on('receive', function(message) {
-				console.log("Received: " + message);
+				console.log("received: " + message);
 				assert.isNotNull(message);
 				assert.isNotNull(JSON.parse(message).data.mid);
 				done();
 			});
 
+			console.log("sending: " + test_message);
 			conn.websocket_send_message(test_message);
 		});
 

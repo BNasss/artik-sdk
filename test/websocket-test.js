@@ -13,14 +13,13 @@ var artik      = require('../lib/artik-sdk');
 
 /* Test Specific Includes */
 var websocket         = require('../src/websocket');
-var auth_token        = process.env.WEBSOCKET_ACCESS_TOKEN;
-var device_id         = process.env.WEBSOCKET_DEVICE_ID;
-var host              = "api.artik.cloud";
-var uri               = "/v1.1/websocket?ack=true";
-var port              = 443;
-var ssl_connection    = 2;
-var use_se            = false;
-var register_message  = '{"sdid":"' + device_id + '","Authorization":"bearer ' + auth_token + '","type":"register"}';
+var host              = "echo.websocket.org";
+var uri               = "/";
+var port              = 80;
+var ssl_connection    = 0;
+var use_se            = process.env.WEBSOCKET_ENABLE_SDR == 1 ? true : false;
+var test_message      = "ping";
+
 
 var conn = new websocket(host, uri, port, ssl_connection, use_se);
 
@@ -50,22 +49,20 @@ testCase('Websockets', function() {
 
 	});
 
-	testCase('#write_stream(), on(receive)', function() {
 
-		assertions('Return callback event when the data is received', function(done) {
+	testCase('#write_stream(), on(receive) with echo', function () {
 
-            if (!auth_token || !device_id || !auth_token.length || !device_id.length)
-                this.skip();
+		assertions('Return callback event when the echo is received', function(done) {
 
 			conn.on('receive', function(message) {
 				console.log("received: " + message);
 				assert.isNotNull(message);
-				assert.equal(JSON.parse(message).data.code, "200");
-				assert.equal(JSON.parse(message).data.message, "OK");
+				assert.equal(message, "ping");
 				done();
 			});
 
-			conn.write_stream(register_message);
+			console.log("sending: " + test_message);
+			conn.write_stream(test_message);
 		});
 
 	});
