@@ -1,43 +1,28 @@
-var mqtt = new(require('../src/mqtt.js'))();
-
-var client_id = 'artik_mqtt_client';
+var artik      = require('../lib/artik-sdk');
 var host = 'api.artik.cloud';
 var port = 8883;
-var akc_device_id = '< Artik Cloud Device ID >';
-var akc_device_token = '< Artik Cloud Device token >';
-var akc_msg = '{ "state": true }';  // Change for a message supported by 
+var akc_device_id = process.env.MQTT_DEVICE_ID;
+var akc_device_token = process.env.MQTT_DEVICE_TOKEN;
+var akc_msg = '{ "state": true }';  // Change for a message supported by
                                     //  the device's manifest
 var ca_cert = '/etc/ssl/certs/ca-bundle.crt';
 
-mqtt.on('started', function() {
-    console.log('on started');
-    mqtt.create_client(client_id, akc_device_id, akc_device_token,
-            false, 0, true);
-    mqtt.tls_set(ca_cert);
-    mqtt.connect_server(host, port);
-});
-
-mqtt.on('connected', function(result) {
-    console.log('on connected: ' + result);
-
-    /* Subscribe to receive actions ¨*/
-    mqtt.subscribe(0, '/v1.1/actions/' + akc_device_id);
-
-    /* Publish a message */
-    mqtt.publish(0, false, '/v1.1/messages/' + akc_device_id, new Buffer(akc_msg));
-});
+var mqtt = new(require('../src/mqtt.js'))('artik_mqtt_client',
+					  akc_device_id,
+					  akc_device_token,
+					  false,
+					  0,
+					  true);
 
 mqtt.on('disconnected', function(result) {
     console.log('on disconnected: ' + result);
-    mqtt.destroy_client();
     process.exit(0);
 });
 
 mqtt.on('published', function(mid) {
     console.log('on published: ' + mid);
 });
-
-mqtt.on('message', function(mid, topic, buffer, qos, retain) {
+mqtt.on('received', function(mid, topic, buffer, qos, retain) {
     console.log('Received message');
     console.log('\tmid: ' + mid);
     console.log('\tqos: ' + qos);
@@ -48,6 +33,8 @@ mqtt.on('message', function(mid, topic, buffer, qos, retain) {
 
 mqtt.on('subscribed', function(mid) {
     console.log('on subscribed: ' + mid);
+    /* Publish a message */
+    mqtt.publish(0, false, '/v1.1/messages/' + akc_device_id, new Buffer(akc_msg));
 });
 
 mqtt.on('unsubscribed', function(mid) {
@@ -56,6 +43,20 @@ mqtt.on('unsubscribed', function(mid) {
 
 process.on('SIGINT', function () {
     mqtt.disconnect();
+});
+
+
+mqtt.on('connected', function(result) {
+    console.log('on connected: ' + result);
+
+    /* Subscribe to receive actions ¨*/
+    mqtt.subscribe(0, '/v1.1/actions/' + akc_device_id);
+});
+
+mqtt.on('started', function() {
+    console.log('on started');
+    mqtt.tls_set(ca_cert);
+    mqtt.connect(host, port);
 });
 
 
