@@ -48,6 +48,8 @@ var Agent = function() {
 	events.EventEmitter.call(this);
 }
 
+util.inherits(Agent, events.EventEmitter);
+
 Agent.prototype.register_capability = function(capability) {
 	return this.agent.register_capability(capability);
 }
@@ -60,5 +62,4 @@ Agent.prototype.unregister = function() {
 	return this.agent.unregister();
 }
 
-util.inherits(Agent, events.EventEmitter);
 module.exports = Agent;
