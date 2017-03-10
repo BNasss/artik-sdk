@@ -1,107 +1,542 @@
-var events = require('events');
-var util = require('util');
-var zigbee = require('../lib/artik-sdk').zigbee;
+var util = require('util')
+var EventEmitter = require('events').EventEmitter
 
-var Zigbee = function(){
-	events.EventEmitter.call(this);
-	this.zb = new zigbee();
-	setImmediate(function(self) {
-		self.emit('started');
-	}, this);
+/**
+ * ZigBee module
+ *
+ * Network topology:
+ *
+ *   Coordinator --- Router --- End-Node
+ *          \            \--- Router --- End-Node
+ *           \--- End-Node
+ *
+ * @section Usage
+ * @code
+ *   var Zigbee = require('zigbee').Zigbee
+ *   var Light = require('zigbee').ZigbeeDevices.ONOFF_LIGHT
+ *
+ *   // create zigbee handle
+ *   var myzigbee = new Zigbee()
+ *
+ *   // create ONOFF Light device handle with endpoint ID(1)
+ *   var mydevice = new Light(myzigbee, 1)
+ *
+ *   myzigbee.initialize()
+ *   myzigbee.start()
+ *   myzigbee.join() or .form() or nothing(already network joined)
+ *   myzigbee.on('network_notification', function (event) { ... })
+ *   ...
+ *
+ *   var status = mydevice.onoff_get_value()
+ *   console.log('status =', status)
+ * @endcode
+ *
+ * @section Events
+ * Zigbee events
+ *
+ * @event receive_command
+ * @param {Object} {
+ *     is_global_command: {Number},
+ *     endpoint_id: {Number},
+ *     cluster_id: {Number},
+ *     command_id: {Number},
+ *     payload: {String},
+ *     source_device_id: {Number},
+ *     source_endpoint_id: {Number}
+ *   }
+ *
+ * @event attribute_change
+ * @param {Object} {
+ *     attr: {String},
+ *     endpoint_id: {Number}
+ *   }
+ *
+ * @event reporting_configure
+ * @param {Object} {
+ *     used: {Number},
+ *     endpoint_id: {Number},
+ *     cluster_id: {Number},
+ *     attribute_id: {Number},
+ *     is_server: {Number},
+ *     reported: {
+ *       min_interval: {Number},
+ *       max_interval: {Number},
+ *       reportable_change: {Number}
+ *     }
+ *   }
+ *
+ * @event report_attribute
+ * @param {Object} {
+ *     attr: {String},
+ *     value: {Number}
+ *   }
+ *
+ * @event identify_feedback_start
+ * @param {Object} {
+ *     endpoint_id: {Number},
+ *     duration: {Number}
+ *   }
+ *
+ * @event identify_feedback_stop
+ * @param {Object} {
+ *     endpoint_id: {Number},
+ *     duration: {Number}
+ *   }
+ *
+ * @event network_notification
+ * @param {Object} {
+ *     status: {String} ('join', 'leave', 'find_form', 'find_form_failed',
+ *             'find_join', 'find_join_failed')
+ *   }
+ *
+ * @event network_find
+ * @param {Object} {
+ *     status: {String} ('found', 'finished'),
+ *     channel: {Number},
+ *     tx_power: {Number},
+ *     pan_id: {Number}
+ *   }
+ *
+ * @event device_discover
+ * @param {Object} {
+ *     status: {String} ('start', 'found', 'in_progress', 'done', 'no_device', 'error',
+ *             'changed', 'lost'),
+ *     device: {Object} (Deviceinfo object)
+ *   }
+ *
+ * @event device_left
+ * @param none
+ *
+ * @event broadcast_identify_query_response
+ * @param {Object} {
+ *     device_id: {Number},
+ *     endpoint_id: {Number},
+ *     timeout: {Number}
+ *   }
+ *
+ * @event groups_info
+ * @param {Object} {
+ *     command: {Number},
+ *     group_id: {Number},
+ *     endpoint_id: {Number}
+ *   }
+ *
+ * @event commissioning_status
+ * @param {Object} {
+ *     status: {String} ('error_in_progress', 'network_steering_form',
+ *             'network_steering_success', 'network_steering_failed',
+ *             'network_steering', 'initiator_success', 'initiator_failed',
+ *             'initiator_stop', 'target_success', 'target_failed', target_stop')
+ *   }
+ *
+ * @event commissioning_target_info
+ * @param {Object} {
+ *     device_id: {Number},
+ *     endpoint_id: {Number}
+ *   }
+ *
+ * @event commissioning_bound_info
+ * @param {Object} {
+ *     device_id: {Number},
+ *     endpoint_id: {Number},
+ *     cluster_id: {Number}
+ *   }
+ *
+ * @event ieee_addr
+ * @param {Object} {
+ *     status: {String}, ('success', 'error')
+ *     device_id: {Number},
+ *     eui64: {String}
+ *   }
+ *
+ * @event simple_desc
+ * @param {Object} {
+ *     status: {String}, ('success', 'error')
+ *     target_device_id: {Number},
+ *     target_endpoint: {Number},
+ *     server_cluster: {Array},
+ *     client_cluster: {Array}
+ *   }
+ *
+ * @event match_desc
+ * @param {Object} {
+ *     status: {String}, ('success', 'received', 'error')
+ *     device_id: {Number},
+ *     endpoints: {Array}
+ *   }
+ *
+ * @event basic_reset_to_factory
+ * @param {Object} {
+ *     endpoint_id: {Number}
+ *   }
+ *
+ * @section Object types
+ * - Device object
+ *   {
+ *     device_id: {Number},
+ *     profile_id: {Number},
+ *     handle: {Number}
+ *   }
+ *
+ * - Deviceinfo object
+ *   {
+ *     eui64: {String},
+ *     device_id: {Number},
+ *     endpoints: {Array} (Endpoint object)
+ *   }
+ *
+ * - Endpoint object
+ *   {
+ *     endpoint_id: {Number},
+ *     device_id: {Number},
+ *     server_cluster: {Array} ([ 1, 2, 3,-1,-1,-1,-1,-1,-1]),
+ *     client_cluster: {Array} ([ 1, 2,-1,-1,-1,-1,-1,-1,-1])
+ *   }
+ */
+function Zigbee (opts) {
+  EventEmitter.call(this)
+
+  this.api = new (require('../lib/artik-sdk').zigbee)()
+  setImmediate(function (self) {
+    self.emit('started')
+  }, this)
 }
 
-util.inherits(Zigbee, events.EventEmitter);
+util.inherits(Zigbee, EventEmitter)
 
-module.exports = Zigbee;
+/**
+ * Initialize ZigBee API (Setup communication with zigbee daemon)
+ */
+Zigbee.prototype.initialize = function () {
+  var _ = this
 
-Zigbee.prototype.ON_OFF_SWITCH = 0x0000;
-Zigbee.prototype.LEVEL_CONTROL_SWITCH = 0x0001;
-Zigbee.prototype.ON_OFF_LIGHT = 0x0100;
-Zigbee.prototype.DIMMABLE_LIGHT = 0x0101;
+  this.api.initialize(function (data) {
+    var event = JSON.parse(data)
+    _.emit(event.type, event)
+  })
+}
 
-Zigbee.prototype.ZCL_ON_OFF_CLUSTER_ID = 0x0006;
+/**
+ * Start request to zigbee daemon
+ *
+ * @return {String} current network state.
+ *                 'no_network', 'joining_network', 'joined_network',
+ *                 'joined_network_no_parent', 'leaving_network'
+ */
+Zigbee.prototype.network_start = function () {
+  return this.api.network_start()
+}
 
-Zigbee.prototype.ZIGBEE_ONOFF_OFF = 3220;
-Zigbee.prototype.ZIGBEE_ONOFF_ON =3221;
-Zigbee.prototype.ZIGBEE_ONOFF_TOGGLE =3222;
+/**
+ * Leave from the joined network
+ */
+Zigbee.prototype.network_leave = function () {
+  this.api.network_leave()
+}
 
-/* TX_POWER */
-Zigbee.prototype.ZIGBEE_TX_POWER_8 = 8;
-Zigbee.prototype.ZIGBEE_TX_POWER_7 = 7;
-Zigbee.prototype.ZIGBEE_TX_POWER_6 = 6;
-Zigbee.prototype.ZIGBEE_TX_POWER_5 = 5;
-Zigbee.prototype.ZIGBEE_TX_POWER_4 = 4;
-Zigbee.prototype.ZIGBEE_TX_POWER_3 = 3;
-Zigbee.prototype.ZIGBEE_TX_POWER_2 = 2;
-Zigbee.prototype.ZIGBEE_TX_POWER_1 = 1;
-Zigbee.prototype.ZIGBEE_TX_POWER_0 = 0;
-Zigbee.prototype.ZIGBEE_TX_POWER_MINUS1 = -1;
-Zigbee.prototype.ZIGBEE_TX_POWER_MINUS2 = -2;
-Zigbee.prototype.ZIGBEE_TX_POWER_MINUS3 = -3;
-Zigbee.prototype.ZIGBEE_TX_POWER_MINUS4 = -4;
-Zigbee.prototype.ZIGBEE_TX_POWER_MINUS5 = -5;
-Zigbee.prototype.ZIGBEE_TX_POWER_MINUS6 = -6;
-Zigbee.prototype.ZIGBEE_TX_POWER_MINUS7 = -7;
-Zigbee.prototype.ZIGBEE_TX_POWER_MINUS8 = -8;
-Zigbee.prototype.ZIGBEE_TX_POWER_MINUS9 = -9;
-Zigbee.prototype.ZIGBEE_TX_POWER_MINUS11 = -11;
-Zigbee.prototype.ZIGBEE_TX_POWER_MINUS12 = -12;
-Zigbee.prototype.ZIGBEE_TX_POWER_MINUS14 = -14;
-Zigbee.prototype.ZIGBEE_TX_POWER_MINUS17 = -17;
-Zigbee.prototype.ZIGBEE_TX_POWER_MINUS20 = -20;
-Zigbee.prototype.ZIGBEE_TX_POWER_MINUS26 = -26;
-Zigbee.prototype.ZIGBEE_TX_POWER_MINUS43 = -43;
+/**
+ * Coordinator - Form a new network as a coordinator.
+ *
+ * @param {Object} opts Manual options for form. tx_power: -43 ~ 8
+ */
+Zigbee.prototype.network_form = function (opts) {
+  if (opts) {
+    this.api.network_form_manually(opts.channel, opts.tx_power, opts.pan_id)
+  } else {
+    this.api.network_form()
+  }
+}
 
-Zigbee.prototype.initialize = function(devices) {
-	var _ = this;
-	return this.zb.initialize(
-		devices,
-		function(data) {
-			_.emit('event', data);
-		}
-	);
-};
+/**
+ * Coordinator - Permit joining to the formed network from other nodes
+ *
+ * @param {Number} duration Seconds value to permit joining
+ */
+Zigbee.prototype.network_permitjoin = function (duration) {
+  this.api.network_permitjoin(duration)
+}
 
-Zigbee.prototype.network_start = function() {
-	return this.zb.network_start();
-};
+/**
+ * Join to the existing network by other coordinator automatically.
+ * Router/End-node
+ *
+ * @param {Object} opts Manual options for network. tx_power: -43 ~ 8
+ */
+Zigbee.prototype.network_join = function (opts) {
+  if (opts) {
+    this.api.network_join_manually(opts.channel, opts.tx_power, opts.pan_id)
+  } else {
+    this.api.network_join()
+  }
+}
 
-Zigbee.prototype.network_leave = function() {
-	return this.zb.network_leave();
-};
+/**
+ * Scan existing networks
+ */
+Zigbee.prototype.network_find = function () {
+  this.api.network_find()
+}
 
-Zigbee.prototype.network_form = function() {
-	return this.zb.network_form();
-};
+/**
+ * Stop the network scanning.
+ *
+ * When 'network form', 'network join' and 'network find' are
+ * called, network scanning is conducted in zigbeed side, this
+ * api is provided to stop network scanning.
+ */
+Zigbee.prototype.network_stop_scan = function () {
+  this.api.network_stop_scan()
+}
 
-Zigbee.prototype.network_form_manually = function(network_info) {
-	return this.zb.network_form_manually(network_info);
-};
+/**
+ * Reset local device attribute, binding list and initialize network.
+ */
+Zigbee.prototype.reset_local = function () {
+  this.api.reset_local()
+}
 
-Zigbee.prototype.network_permitjoin = function(duration_sec) {
-	return this.zb.network_permitjoin(duration_sec);
-};
+/**
+ * Get current network status
+ *
+ * @return {String} current network state.
+ *                  'no_network', 'joining_network', 'joined_network',
+ *                  'joined_network_no_parent', 'leaving_network'
+ */
+Zigbee.prototype.network_request_my_network_status = function () {
+  return this.api.network_request_my_network_status()
+}
 
-Zigbee.prototype.network_join = function() {
-	return this.zb.network_join();
-};
+/**
+ * Get my node type
+ *
+ * @return {String} Node type.
+ *                  'coordinator', 'router', 'end_device', 'sleepy_end_device'
+ */
+Zigbee.prototype.device_request_my_node_type = function () {
+  return this.api.device_request_my_node_type()
+}
 
-Zigbee.prototype.network_request_my_network_status = function() {
-	return this.zb.network_request_my_network_status();
-};
+/**
+ * Get endpoint list to filtered by cluster ID
+ *
+ * @return {Array} Array of endpoint object.
+ */
+Zigbee.prototype.device_find_by_cluster = function (clusterId) {
+  return JSON.parse(this.api.device_find_by_cluster(clusterId))
+}
 
-Zigbee.prototype.device_request_my_node_type = function() {
-	return this.zb.device_request_my_node_type();
-};
+/**
+ * Request device/service discovery
+ *
+ * Device/service discovery is a cyclic call, and the default
+ * cyclic duration is 1 minute, for the cyclic duration setting,
+ * please check api 'set_discover_cycle_time'.
+ * If current api 'device_discover' is called, the discovery is
+ * triggered immediately.
+ *
+ * 'device_discover' event will be invoked.
+ */
+Zigbee.prototype.device_discover = function () {
+  this.api.device_discover()
+}
 
-Zigbee.prototype.device_find_by_cluster = function(cluster_id) {
-	return this.zb.device_find_by_cluster(cluster_id);
-};
+/**
+ * Set the cyclic duaration of device discovery cycle
+ *
+ * @param {Number} cycleMinutes The cyclic duaration, in minutes,
+ */
+Zigbee.prototype.set_discover_cycle_time = function (cycleMinutes) {
+  return this.api.set_discover_cycle_time(cycleMinutes)
+}
 
-Zigbee.prototype.onoff_command = function(endpoint, onoff_value) {
-	return this.zb.onoff_command(endpoint, onoff_value);
-};
+/**
+ * Get discovered device list
+ *
+ * @return {Array} Array of Deviceinfo object.
+ */
+Zigbee.prototype.get_discovered_device_list = function () {
+  return JSON.parse(this.api.get_device_info())
+}
 
-Zigbee.prototype.onoff_get_value = function(endpoint_id) {
-	return this.zb.onoff_get_value(endpoint_id);
-};
+/**
+ * Get my local device list
+ *
+ * @return {Array} Array of Device object.
+ */
+Zigbee.prototype.get_local_device_list = function () {
+  return JSON.parse(this.api.get_device_list())
+}
+
+module.exports.Zigbee = Zigbee
+
+/**
+ * ZigBee Device APIs
+ *
+ * - groups_get_local_name_support()
+ *   Get local attribute of "name support" of cluster "Groups".
+ *   @return {Boolean} true(supported), false(not supported)
+ *
+ * - groups_set_local_name_support(support)
+ *   Set local attribute of "name support" of cluster "Groups".
+ *   @param {Boolean} support flag
+ *
+ * - ezmode_commissioning_target_start()
+ *   Start ezmode commissioning on some endpoint as target
+ *
+ * - ezmode_commissioning_target_stop()
+ *   Stop ezmode commissioning on some endpoint as target
+ *
+ * - ezmode_commissioning_initiator_start()
+ *   Start ezmode commissioning on some endpoint as initiator
+ *
+ * - ezmode_commissioning_initiator_stop()
+ *   Stop ezmode commissioning on some endpoint as initiator
+ *
+ * - identify_request()
+ *   Send command "Identify".
+ *
+ * - identify_get_remaining_time()
+ *   Send command "Identify Query", to get remote identify time.
+ *   @return {Number} Remaining seconds of identifying.
+ *
+ * - onoff_command(endpoint, command)
+ *   Send command to control remote on/off.
+ *   @param {Object} endpoint
+ *   @param {String} command 'on', 'off', 'toggle'
+ *
+ * - onoff_get_value()
+ *   Get attribute of "on/off" of cluster "On/off".
+ *   @return {String} 'on' or 'off'
+ *
+ * - level_control_request(endpoint, levelCommand)
+ *   Send commands about level control, to control remote level.
+ *   @param {Object} endpoint
+ *   @param {Object} levelCommand {
+ *     type: {String}, ('stop', 'moveup', 'movedown', 'moveto', 'stepup', 'stepdown')
+ *     value: {Number},
+ *     transition_time: {Number}, (optional. default 0)
+ *     auto_onoff: {Boolean} (optional. default false)
+ *   }
+ *
+ * - level_control_get_value()
+ *   Get attribute of "current level" of cluster "Levle Control".
+ *   @return {Number} Current level of this device.
+ *
+ * - illum_set_measured_value_range(min, max)
+ *   Set the range of illuminance in Lux (symbol lx)
+ *   @param {Number} min Min illuminance value, unit is lx. should same or bigger than 1.
+ *   @param {Number} max Max illuminance value, unit is lx. should same or less than 3,576,000.
+ *
+ * - illum_set_measured_value(value)
+ *   Set the Illuminance in Lux (symbol lx)
+ *   @param {Number} value Illuminance value.
+ *
+ * - illum_get_measured_value()
+ *   Get the Illuminance in Lux (symbol lx)
+ *   @return {Number} Illuminance value
+ *
+ * - request_reporting(endpoint, command, min_interval, max_interval, threshold)
+ *   Notice device server to report the attribute.
+ *   @param {Object} endpoint
+ *   @param {String} command 'measured_illuminance', 'thermostat_temperature', 'occupancy_sensing', 'measured_temperature'
+ *   @param {Number} min_interval The reporting minimum interval. (seconds)
+ *   @param {Number} max_interval The reporting maximum interval. (seconds)
+ *   @param {Number} threshold Minimum changed value to trigger reporting.
+ *
+ * - stop_reporting(endpoint, command)
+ *   Notice device server to stop the attribute reporting.
+ *   @param {Object} endpoint
+ *   @param {String} command 'measured_illuminance', 'thermostat_temperature', 'occupancy_sensing', 'measured_temperature'
+ *
+ * - reset_to_factory_default(endpoint)
+ *   Resets all attribute values to factory default.
+ *   @param {Object} endpoint
+ */
+module.exports.ZigbeeDevices = {
+  /**
+   * On/Off Light
+   *
+   * var devObject = new ZigbeeDevices.ONOFF_LIGHT(Zigbee, endpointID)
+   *
+   * Avaiable APIs
+   * - groups_get_local_name_support()
+   * - groups_set_local_name_support()
+   * - onoff_get_value()
+   * - ezmode_commissioning_target_start()
+   * - ezmode_commissioning_target_stop()
+   */
+  ONOFF_LIGHT: require('../lib/artik-sdk').zigbee_onoff_light,
+  /**
+   * On/Off Switch
+   *
+   * var devObject = new ZigbeeDevices.ONOFF_SWITCH(Zigbee, endpointID)
+   *
+   * Avaiable APIs
+   * - identify_request()
+   * - identify_get_remaining_time()
+   * - onoff_command()
+   * - ezmode_commissioning_initiator_start()
+   * - ezmode_commissioning_initiator_stop()
+   */
+  ONOFF_SWITCH: require('../lib/artik-sdk').zigbee_onoff_switch,
+  /**
+   * Level Control Switch
+   *
+   * var devObject = new ZigbeeDevices.LEVELCONTROL_SWITCH(Zigbee, endpointID)
+   *
+   * Avaiable APIs
+   * - identify_request()
+   * - identify_get_remaining_time()
+   * - onoff_command()
+   * - level_control_request()
+   * - ezmode_commissioning_initiator_start()
+   * - ezmode_commissioning_initiator_stop()
+   */
+  LEVELCONTROL_SWITCH: require('../lib/artik-sdk').zigbee_levelcontrol_switch,
+  /**
+   * Dimmable Light
+   *
+   * var devObject = new ZigbeeDevices.DIMMABLE_LIGHT(Zigbee, endpointID)
+   *
+   * Avaiable APIs
+   * - groups_get_local_name_support()
+   * - groups_set_local_name_support()
+   * - onoff_get_value()
+   * - level_control_get_value()
+   * - ezmode_commissioning_target_start()
+   * - ezmode_commissioning_target_stop()
+   */
+  DIMMABLE_LIGHT: require('../lib/artik-sdk').zigbee_dimmable_light,
+  /**
+   * Light Sensor
+   *
+   * var devObject = new ZigbeeDevices.LIGHT_SENSOR(Zigbee, endpointID)
+   *
+   * Avaiable APIs
+   * - identify_request()
+   * - identify_get_remaining_time()
+   * - illum_set_measured_value_range()
+   * - illum_set_measured_value()
+   * - illum_get_measured_value()
+   * - ezmode_commissioning_initiator_start()
+   * - ezmode_commissioning_initiator_stop()
+   */
+  LIGHT_SENSOR: require('../lib/artik-sdk').zigbee_light_sensor,
+  /**
+   * Remote Control
+   *
+   * var devObject = new ZigbeeDevices.REMOTE_CONTROL(Zigbee, endpointID)
+   *
+   * Avaiable APIs
+   * - reset_to_factory_default()
+   * - identify_request()
+   * - identify_get_remaining_time()
+   * - onoff_command()
+   * - level_control_request()
+   * - request_reporting()
+   * - stop_reporting()
+   * - ezmode_commissioning_target_start()
+   * - ezmode_commissioning_target_stop()
+   */
+  REMOTE_CONTROL: require('../lib/artik-sdk').zigbee_remote_control
+}
