@@ -13,8 +13,8 @@ var Network = function() {
 util.inherits(Network, events.EventEmitter);
 module.exports = Network;
 
-Network.prototype.get_current_ip = function get_current_ip() {
-    return this.network.get_current_ip();
+Network.prototype.get_current_public_ip = function get_current_public_ip() {
+    return this.network.get_current_public_ip();
 }
 
 Network.prototype.get_online_status = function get_online_status() {
