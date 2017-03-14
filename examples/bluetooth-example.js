@@ -11,24 +11,27 @@ bt.on('started', function() {
 	bt.start_scan();
 });
 
-bt.on('scan', function(device) {
-	console.log('onscan: '+ device);
-	var device = JSON.parse(device).find(findDevice);
+bt.on('scan', function(err, device) {
+	console.log('onscan (err=' + err + '): ' + device);
+	if (!err) {
+		var dev = JSON.parse(device).find(findDevice);
 
-	if (device) {
-		console.log('Bonding to ' + remote_addr);
-		bt.stop_scan();
-		bt.start_bond(device.address);
+		if (dev) {
+			console.log('Bonding to ' + remote_addr);
+			bt.stop_scan();
+			bt.start_bond(dev.address);
+		}
 	}
 });
 
-bt.on('bond', function(paired) {
-	console.log('bonded: '+ paired);
-	bt.connect(remote_addr);
+bt.on('bond', function(err, paired) {
+	console.log('bonded (err=' + err +'): ' + paired);
+	if (!err)
+		bt.connect(remote_addr);
 });
 
-bt.on('connect', function(connected) {
-	console.log('connected: '+ connected);
+bt.on('connect', function(err, connected) {
+	console.log('connected (err=' + err + '): ' + connected);
 });
 
 process.on('SIGINT', function () {
