@@ -7,6 +7,12 @@ var akc_msg = '{ "state": true }';  // Change for a message supported by
                                     //  the device's manifest
 var ca_cert = '/etc/ssl/certs/ca-bundle.crt';
 
+if (!akc_device_id || !akc_device_token) {
+    console.log("MQTT_DEVICE_ID and MQTT_DEVICE_TOKEN environment " +
+                " variables must be set before running this program.");
+    process.exit(-1);
+}
+
 var mqtt = new(require('../src/mqtt.js'))('artik_mqtt_client',
 					  akc_device_id,
 					  akc_device_token,
