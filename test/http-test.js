@@ -21,6 +21,34 @@ var body = "name=samsung&project=artik";
 
 var allow_disable_wifi = process.env.ALLOW_DISABLE_WIFI;
 
+
+var httpbin_ca_root = 
+	"-----BEGIN CERTIFICATE-----\n" +
+	"MIIDSjCCAjKgAwIBAgIQRK+wgNajJ7qJMDmGLvhAazANBgkqhkiG9w0BAQUFADA/\r\n" +
+	"MSQwIgYDVQQKExtEaWdpdGFsIFNpZ25hdHVyZSBUcnVzdCBDby4xFzAVBgNVBAMT\r\n" +
+	"DkRTVCBSb290IENBIFgzMB4XDTAwMDkzMDIxMTIxOVoXDTIxMDkzMDE0MDExNVow\r\n" +
+	"PzEkMCIGA1UEChMbRGlnaXRhbCBTaWduYXR1cmUgVHJ1c3QgQ28uMRcwFQYDVQQD\r\n" +
+	"Ew5EU1QgUm9vdCBDQSBYMzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEB\r\n" +
+	"AN+v6ZdQCINXtMxiZfaQguzH0yxrMMpb7NnDfcdAwRgUi+DoM3ZJKuM/IUmTrE4O\r\n" +
+	"rz5Iy2Xu/NMhD2XSKtkyj4zl93ewEnu1lcCJo6m67XMuegwGMoOifooUMM0RoOEq\r\n" +
+	"OLl5CjH9UL2AZd+3UWODyOKIYepLYYHsUmu5ouJLGiifSKOeDNoJjj4XLh7dIN9b\r\n" +
+	"xiqKqy69cK3FCxolkHRyxXtqqzTWMIn/5WgTe1QLyNau7Fqckh49ZLOMxt+/yUFw\r\n" +
+	"7BZy1SbsOFU5Q9D8/RhcQPGX69Wam40dutolucbY38EVAjqr2m7xPi71XAicPNaD\r\n" +
+	"aeQQmxkqtilX4+U9m5/wAl0CAwEAAaNCMEAwDwYDVR0TAQH/BAUwAwEB/zAOBgNV\r\n" +
+	"HQ8BAf8EBAMCAQYwHQYDVR0OBBYEFMSnsaR7LHH62+FLkHX/xBVghYkQMA0GCSqG\r\n" +
+	"SIb3DQEBBQUAA4IBAQCjGiybFwBcqR7uKGY3Or+Dxz9LwwmglSBd49lZRNI+DT69\r\n" +
+	"ikugdB/OEIKcdBodfpga3csTS7MgROSR6cz8faXbauX+5v3gTt23ADq1cEmv8uXr\r\n" +
+	"AvHRAosZy5Q6XkjEGB5YGV8eAlrwDPGxrancWYaLbumR9YbK+rlmM6pZW87ipxZz\r\n" +
+	"R8srzJmwN0jP41ZL9c8PDHIyh8bwRLtTcm1D9SZImlJnt1ir/md2cXjbDaJWFBM5\r\n" +
+	"JDGFoqgCWjBH4d1QB7wCCZAA62RjYJsWvIjJEubSfZGL+T0yjWW06XyxV3bqxbYo\r\n" +
+	"Ob8VZRzI9neWagqNdwvYkQsEjgfbKbYK7p2CNTUQ\r\n" +
+	"-----END CERTIFICATE-----";
+
+var ssl_config = {
+	ca_cert: Buffer.from(httpbin_ca_root), // CA root certificate of httpbin.org 
+	verify_cert: "required"
+};
+
 /* Test Case Module */
 testCase('HTTP', function() {
 
@@ -30,7 +58,7 @@ testCase('HTTP', function() {
 	testCase('#post()', function() {
 
 		assertions('HTTP POST - Should return valid response if the URL is valid', function(done) {
-			http.post("https://httpbin.org/post", headers, body, function(response, status) {
+			http.post("https://httpbin.org/post", headers, body, null, function(response, status) {
 				console.log("POST - status " + status + " - response: " + response);
 				assert.equal(status, 200);
 				assert.isNotNull(response);
@@ -40,7 +68,30 @@ testCase('HTTP', function() {
 		});
 
 		assertions('HTTP POST - Should return HTTP 404 response if the URL is invalid', function(done) {
-			http.post("https://httpbin.org/postNull", headers, body, function(response, status) {
+			http.post("https://httpbin.org/postNull", headers, body, null, function(response, status) {
+				console.log("POST - status " + status + " - response: " + response);
+				assert.equal(status, 404);
+				done();
+			});
+
+		});
+
+	});
+
+	testCase('#post() with SSL verify required', function() {
+
+		assertions('HTTP POST SSL - Should return valid response if the URL is valid', function(done) {
+			http.post("https://httpbin.org/post", headers, body, ssl_config, function(response, status) {
+				console.log("POST - status " + status + " - response: " + response);
+				assert.equal(status, 200);
+				assert.isNotNull(response);
+				done();
+			});
+
+		});
+
+		assertions('HTTP POST SSL - Should return HTTP 404 response if the URL is invalid', function(done) {
+			http.post("https://httpbin.org/postNull", headers, body, ssl_config, function(response, status) {
 				console.log("POST - status " + status + " - response: " + response);
 				assert.equal(status, 404);
 				done();
@@ -53,7 +104,20 @@ testCase('HTTP', function() {
 	testCase('#put()', function() {
 
 		assertions('HTTP PUT - Should return valid response if the URL is valid', function(done) {
-			http.put("https://httpbin.org/put", headers, body, function(response, status) {
+			http.put("https://httpbin.org/put", headers, body, null, function(response, status) {
+				console.log("PUT - status " + status + " - response: " + response);
+				assert.equal(status, 200);
+				assert.isNotNull(response);
+				done();
+			});
+		});
+
+	});
+
+	testCase('#put() with SSL verify required', function() {
+
+		assertions('HTTP PUT SSL - Should return valid response if the URL is valid', function(done) {
+			http.put("https://httpbin.org/put", headers, body, ssl_config, function(response, status) {
 				console.log("PUT - status " + status + " - response: " + response);
 				assert.equal(status, 200);
 				assert.isNotNull(response);
@@ -66,7 +130,20 @@ testCase('HTTP', function() {
 	testCase('#del()', function() {
 		assertions('HTTP Delete - Should return valid response if the URL is valid', function(done) {
 
-			http.del("https://httpbin.org/delete", headers, function(response, status) {
+			http.del("https://httpbin.org/delete", headers, null, function(response, status) {
+				console.log("DELETE - status " + status + " - response: " + response);
+				assert.equal(status, 200);
+				assert.isNotNull(response);
+				done();
+			});
+
+		});
+	});
+
+	testCase('#del() with SSL verify required', function() {
+		assertions('HTTP Delete SSL - Should return valid response if the URL is valid', function(done) {
+
+			http.del("https://httpbin.org/delete", headers, ssl_config, function(response, status) {
 				console.log("DELETE - status " + status + " - response: " + response);
 				assert.equal(status, 200);
 				assert.isNotNull(response);
@@ -80,7 +157,7 @@ testCase('HTTP', function() {
 
 		assertions('HTTP Get - Should return valid response if the URL is valid', function(done) {
 
-			http.get("https://httpbin.org/get", headers, function(response, status) {
+			http.get("https://httpbin.org/get", headers, null, function(response, status) {
 				console.log("GET - status " + status + " - response: " + response);
 				assert.equal(status, 200);
 				assert.isNotNull(response);
@@ -91,7 +168,31 @@ testCase('HTTP', function() {
 
 		assertions('HTTP Get - Should return HTTP 404 response if the URL is invalid', function(done) {
 
-			http.get("https://httpbin.org/getNull", headers, function(response, status) {
+			http.get("https://httpbin.org/getNull", headers, null, function(response, status) {
+				console.log("GET - status " + status + " - response: " + response);
+				assert.equal(status, 404);
+				done();
+			});
+
+		});
+	});
+
+	testCase('#get() with SSL verify required', function() {
+
+		assertions('HTTP Get SSL - Should return valid response if the URL is valid', function(done) {
+
+			http.get("https://httpbin.org/get", headers, ssl_config, function(response, status) {
+				console.log("GET - status " + status + " - response: " + response);
+				assert.equal(status, 200);
+				assert.isNotNull(response);
+				done();
+			});
+
+		});
+
+		assertions('HTTP Get SSL - Should return HTTP 404 response if the URL is invalid', function(done) {
+
+			http.get("https://httpbin.org/getNull", headers, ssl_config, function(response, status) {
 				console.log("GET - status " + status + " - response: " + response);
 				assert.equal(status, 404);
 				done();
@@ -114,7 +215,7 @@ testCase('HTTP', function() {
 			if (allow_disable_wifi == 0)
 				this.skip();
 
-			http.get("https://httpbin.org/get", headers, function(response, status) {
+			http.get("https://httpbin.org/get", headers, null, function(response, status) {
 				console.log("GET - status " + status + " - response: " + response);
 				assert.equal(status, 0);
 				done();
