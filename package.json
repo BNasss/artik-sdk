@@ -86,9 +86,11 @@
     "examples/mqtt-example.js",
     "examples/lwm2m-example.js"
   ],
+  "dependencies": {
+    "colors": "^1.1.2"
+  },
   "devDependencies": {
     "chai": "^3.5.0",
-    "colors": "^1.1.2",
     "mocha": "^3.2.0",
     "validator": "^6.2.1"
   }
