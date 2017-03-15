@@ -40,7 +40,7 @@ function my_loop() {
     }
 
     if (envtemp_sensor) {
-        console.log("Function 'get_celcius' : %d°C\n", envtemp_sensor.get_celcius());
+        console.log("Function 'get_celsius' : %d°C\n", envtemp_sensor.get_celsius());
         console.log("Function 'get_fahrenheit' : %d°F\n", envtemp_sensor.get_fahrenheit());
     }
 
