@@ -8,13 +8,33 @@ for (var i = 0; i < list_of_device_sensor.length; ++i)
 
 try {
     var acce_sensor = module_sensor.get_accelerometer_sensor(0);
+} catch (err) {
+    console.log("Accelerometer sensor : "+err)
+}
+try {
     var humid_sensor = module_sensor.get_humidity_sensor(0);
+} catch (err) {
+    console.log("Humidity sensor : "+err)
+}
+try {
     var photolight_sensor = module_sensor.get_light_sensor(0);
+} catch (err) {
+    console.log("PhotoLight sensor : "+err)
+}
+try {
     var envtemp_sensor = module_sensor.get_temperature_sensor(0);
+} catch (err) {
+    console.log("Environement temperature sensor : "+err)
+}
+try {
     var proximity_sensor = module_sensor.get_proximity_sensor(0);
+} catch (err) {
+    console.log("Proximity sensor : "+err)
+}
+try {
     var flame_sensor = module_sensor.get_flame_sensor(0);
-} catch (e) {
-    /* Do nothing, check sensors validity later before using */
+} catch (err) {
+    console.log("Flame sensor : "+err)
 }
 
 var i = 0;
