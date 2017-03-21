@@ -65,7 +65,6 @@ Characteristic.prototype.onSubscribe = function(updateValueCallback) {
 };
 
 Characteristic.prototype.onUnsubscribe = function() {
-	this.maxValueSize = null;
 	this.updateValueCallback = null;
 };
 

@@ -127,7 +127,6 @@ Bluetooth.prototype.set_trust = function(addr) {
 }
 
 Bluetooth.prototype.unset_trust = function(addr) {
-    console.log("unset_trust");
 	return this.bt.unset_trust(addr);
 }
 
