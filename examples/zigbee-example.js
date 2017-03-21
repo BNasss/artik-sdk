@@ -303,11 +303,11 @@ cli.push({
 })
 
 cli.push({
-  cmd: 'get_device_info',
-  help: 'get_device_info()',
+  cmd: 'get_discov_devices',
+  help: 'get_discovered_device_info()',
   func: function () {
     try {
-      var dev = znode.get_device_info()
+      var dev = znode.get_discovered_device_list()
       console.log('device ='.blue, colors.blue(JSON.stringify(dev, null, 2)))
     } catch (e) {
       console.log(colors.red(e))
@@ -316,10 +316,10 @@ cli.push({
 })
 
 cli.push({
-  cmd: 'get_device_list',
-  help: 'get_device_list()',
+  cmd: 'get_local_devices',
+  help: 'get_local_device_list()',
   func: function () {
-    var dev = znode.get_device_list()
+    var dev = znode.get_local_device_list()
     console.log('devices ='.blue, colors.blue(JSON.stringify(dev, null, 2)))
   }
 })
