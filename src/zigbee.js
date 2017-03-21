@@ -109,7 +109,7 @@ var EventEmitter = require('events').EventEmitter
  *
  * @event broadcast_identify_query_response
  * @param {Object} {
- *     device_id: {Number},
+ *     node_id: {Number},
  *     endpoint_id: {Number},
  *     timeout: {Number}
  *   }
@@ -131,13 +131,13 @@ var EventEmitter = require('events').EventEmitter
  *
  * @event commissioning_target_info
  * @param {Object} {
- *     device_id: {Number},
+ *     node_id: {Number},
  *     endpoint_id: {Number}
  *   }
  *
  * @event commissioning_bound_info
  * @param {Object} {
- *     device_id: {Number},
+ *     node_id: {Number},
  *     endpoint_id: {Number},
  *     cluster_id: {Number}
  *   }
@@ -145,14 +145,14 @@ var EventEmitter = require('events').EventEmitter
  * @event ieee_addr
  * @param {Object} {
  *     status: {String}, ('success', 'error')
- *     device_id: {Number},
+ *     node_id: {Number},
  *     eui64: {String}
  *   }
  *
  * @event simple_desc
  * @param {Object} {
  *     status: {String}, ('success', 'error')
- *     target_device_id: {Number},
+ *     target_node_id: {Number},
  *     target_endpoint: {Number},
  *     server_cluster: {Array},
  *     client_cluster: {Array}
@@ -161,7 +161,7 @@ var EventEmitter = require('events').EventEmitter
  * @event match_desc
  * @param {Object} {
  *     status: {String}, ('success', 'received', 'error')
- *     device_id: {Number},
+ *     node_id: {Number},
  *     endpoints: {Array}
  *   }
  *
@@ -181,14 +181,14 @@ var EventEmitter = require('events').EventEmitter
  * - Deviceinfo object
  *   {
  *     eui64: {String},
- *     device_id: {Number},
+ *     node_id: {Number},
  *     endpoints: {Array} (Endpoint object)
  *   }
  *
  * - Endpoint object
  *   {
  *     endpoint_id: {Number},
- *     device_id: {Number},
+ *     node_id: {Number},
  *     server_cluster: {Array} ([ 1, 2, 3,-1,-1,-1,-1,-1,-1]),
  *     client_cluster: {Array} ([ 1, 2,-1,-1,-1,-1,-1,-1,-1])
  *   }
@@ -355,7 +355,7 @@ Zigbee.prototype.set_discover_cycle_time = function (cycleMinutes) {
  * @return {Array} Array of Deviceinfo object.
  */
 Zigbee.prototype.get_discovered_device_list = function () {
-  return JSON.parse(this.api.get_device_info())
+  return JSON.parse(this.api.get_discovered_device_list())
 }
 
 /**
@@ -364,7 +364,7 @@ Zigbee.prototype.get_discovered_device_list = function () {
  * @return {Array} Array of Device object.
  */
 Zigbee.prototype.get_local_device_list = function () {
-  return JSON.parse(this.api.get_device_list())
+  return JSON.parse(this.api.get_local_device_list())
 }
 
 module.exports.Zigbee = Zigbee
