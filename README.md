@@ -5,7 +5,14 @@
    * [Time API](/doc/TIME_README.md)
 
 ## 2. Bluetooth
-   * [Bluetooth API](/doc/BLUETOOTH_README.md)
+   * [Bluetooth API](/doc/bluetooth/BLUETOOTH_README.md)
+   * [Bluetooth Agent API](/doc/bluetooth/AGENT_README.md)
+   * [Bluetooth AVRCP API](/doc/bluetooth/AVRCP_README.md)
+   * [Bluetooth FTP API](/doc/bluetooth/FTP_README.md)
+   * [Bluetooth GATT Client API](/doc/bluetooth/GATTCLIENT_README.md)
+   * [Bluetooth GATT Server API](/doc/bluetooth/GATTSERVER_README.md)
+   * [Bluetooth PAN API](/doc/bluetooth/PAN_README.md)
+   * [Bluetooth SPP API](/doc/bluetooth/SPP_README.md)
 
 ## 3. Connectivity
    * [Artik Cloud API](/doc/CLOUD_README.md)
