@@ -48,27 +48,37 @@ bt.on('started', function() {
 			return service.uuid == SERVICE_IMMEDIATE_ALERT
 		});
 
-
+		console.log("Service " + immediate_alert.uuid + " found");
 		var characteristics = immediate_alert.discover_characteristics();
 		char_battery_level = characteristics.find(function(chr) { return chr.uuid == CHAR_BATTERY_LEVEL});
 		var descriptors = char_battery_level.discover_descriptors();
 		var desc_test = descriptors.find(function(desc) { return desc.uuid == DESC_TEST});
-		var desc_val = new Buffer([0x15])
-		desc_test.write(desc_val);
 		var read_val = desc_test.read();
-		console.log("read " + read_val.length + " bytes:");
+		console.log("read " + read_val.length + " bytes from descriptor " + desc_test.uuid + ":");
+		console.log("  - " + read_val.toString("hex"));
+		var desc_val = new Buffer([0x15]);
+		console.log("write " + desc_val.length + " bytes to descriptor " + desc_test.uuid + ":");
+		console.log("  - " + desc_val.toString("hex"));
+		desc_test.write(desc_val);
+		read_val = desc_test.read();
+		console.log("read" + read_val.length + " bytes from descriptor " + desc_test.uuid + ":");
 		console.log("  - " + read_val.toString("hex"));
 		var include_read = includes(char_battery_level.properties, "read");
 		var include_write = includes(char_battery_level.properties, "write");
+		if (include_read) {
+			var val = char_battery_level.read();
+			console.log("read  " + val.length + " bytes from characteristic " + char_battery_level.uuid + ":");
+			console.log("  - " + val.toString("hex"));
+		}
 		if (include_write) {
 			var val = new Buffer([0x10]);
-			console.log("write " + val.length + " bytes:");
+			console.log("write " + val.length + " bytes to characteristic " + char_battery_level.uuid + ":");
 			console.log("  - " + val.toString("hex"));
 			char_battery_level.write(val);
 		}
 		if (include_read) {
 			var val = char_battery_level.read();
-			console.log("read  " + val.length + " bytes:");
+			console.log("read  " + val.length + " bytes from characteristic " + char_battery_level.uuid + ":");
 			console.log("  - " + val.toString("hex"));
 		}
 
@@ -76,11 +86,14 @@ bt.on('started', function() {
 		if (include_notify)
 		{
 			char_battery_level.on("data", function(buffer) {
-				console.log("received " + buffer.length + " bytes :");
+				console.log("received " + buffer.length + " bytes from characteristic " + char_battery_level.uuid + ":");
 				console.log("  - " + buffer.toString("hex"))
 			});
-		    char_battery_level.subscribe();
-		    process.on('SIGINT', function() { char_battery_level.unsubscribe()});
+			char_battery_level.subscribe();
+			process.on('SIGINT', function() {
+				char_battery_level.unsubscribe();
+				process.exit(0);
+			});
 		}
 	});
 
