@@ -74,6 +74,7 @@
     "examples/bluetooth-gattserver-example.js",
     "examples/bluetooth-spp-example.js",
     "examples/bluetooth-agent-example.js",
+    "examples/bluetooth-avrcp-example.js",
     "examples/sensor-example.js",
     "examples/network-example.js",
     "examples/websocket-example.js",
