@@ -79,7 +79,7 @@ cli.push(' Basic initialization')
 cli.push({
   cmd: 'add_device',
   args: '{type}',
-  help: ['Add device', '- {type}: onoff_light/onoff_siwtch/...'],
+  help: ['Add device', '- {type}: onoff_light/onoff_switch/...'],
   completions: ['onoff_light', 'onoff_switch', 'levelcontrol_switch', 'dimmable_light', 'light_sensor', 'remote_control'],
   func: function (args) {
     args.forEach(function (name) {
