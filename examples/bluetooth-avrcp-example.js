@@ -1,9 +1,10 @@
+var readline = require('readline');
 var bluetooth = require('../src/bluetooth');
+var CommandLine = require('./commandline');
 var bt = new bluetooth();
 var avrcp = new bluetooth.Avrcp();
-var readline = require('readline');
 
-var remote_addr = "<BT device address>";
+var remote_addr = null;
 
 function list_item(args, help) {
 	var is_browsable = avrcp.controller_get_browsable();
@@ -194,49 +195,7 @@ var commands = [
 	  handler: quit }
 ];
 
-function display_help(args)
-{
-	if (args) {
-		var cmd = commands.find(function(item) { return item.command == args[0] });
-
-		if (cmd) {
-			console.log(cmd.command + " - " + cmd.description);
-			console.log(cmd.doc);
-		} else {
-			console.log("The " + args[0] + " command does not exist.");
-			console.log("Use the help command for help.");
-		}
-	} else {
-		commands.forEach(function (e) { console.log(e.command + " - " + e.description)});
-		console.log("help [command] - for more details on a command")
-	}
-}
-
-function execute_command(line) {
-	var argv = line.split(' ');
-	var command = argv[0];
-	var args = argv.slice(1);
-
-	var cmd = commands.find(function(item) { return item.command == command });
-	var help = function() {
-		console.log(cmd.command + " - " + cmd.description);
-		console.log(cmd.doc);
-	};
-
-	if (cmd) {
-		cmd.handler(args, help);
-	} else if (command == "help") {
-		display_help(args);
-	} else {
-		console.log("The " + command + " command does not exist.");
-	}
-}
-
-var r1 = readline.createInterface({
-	input: process.stdin,
-	output: process.stdout,
-	terminal: false
-});
+var command_line = new CommandLine(commands);
 
 function findDevice(item) {
 	return item.address == remote_addr;
@@ -247,17 +206,26 @@ bt.on('started', function() {
 	bt.start_scan();
 });
 
+var r1 = null;
+function stopScanning() {
+	bt.stop_scan();
+	console.log("Please input FTP server MAC address:");
+	r1 = readline.createInterface({
+		input: process.stdin,
+		output: process.stdout,
+		terminal: false
+	});
+	r1.on('line', function(line) {
+		r1.close();
+		remote_addr = line;
+		bt.start_bond(line);
+	})
+}
+
+setTimeout(stopScanning, 20000);
+
 bt.on('scan', function(err, device) {
 	console.log('onscan (err = ' + err + '): ' + device);
-	if (!err) {
-		var dev = JSON.parse(device).find(findDevice);
-
-		if (dev) {
-			console.log('Bonding to '+ remote_addr);
-			bt.stop_scan();
-			bt.start_bond(dev.address);
-		}
-	}
 });
 
 bt.on('bond', function(err, paired) {
@@ -270,13 +238,12 @@ bt.on('bond', function(err, paired) {
 
 bt.on('connect', function(err, connected) {
 	console.log('connected (err=' + err + '):' + connected);
-	console.log(display_help());
-	r1.on('line', function(line) {
-		execute_command(line);
-	});
+	command_line.process();
 });
 
 process.on('SIGINT', function() {
-	bt.stop_scan();
+	if (bt.is_scanning())
+		bt.stop_scan();
+
 	process.exit(0);
 });
