@@ -26,6 +26,20 @@ testCase('Security', function() {
 	}
     });
 
+    testCase('#get_certificate_sn()', function() {
+
+	assertions('Get the serial number of the certificate from the Secure Element.', function() {
+	    try {
+		var sn  = security.get_certificate_sn();
+		assert.isNotNull(sn, "Invalid return type of the variable : 'sn'.\n");
+		console.log("Serial Number : ");
+		console.log(sn);
+	    } catch (err) {
+		console.log("[Exception] : " + err.message);
+	    }
+	});
+    });
+
     testCase('#get_certificate()', function() {
 
 	assertions('Get the certificate from the Secure Element.', function() {
