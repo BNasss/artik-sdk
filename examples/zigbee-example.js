@@ -38,6 +38,7 @@ znode.on('ieee_addr', function (obj) { console.log(obj) })
 znode.on('simple_desc', function (obj) { console.log(obj) })
 znode.on('match_desc', function (obj) { console.log(obj) })
 znode.on('basic_reset_to_factory', function (obj) { console.log(obj) })
+znode.on('level_control', function (obj) { console.log(obj) })
 
 znode.on('network_notification', function (event) {
   if (event.status === 'find_form') {
@@ -391,7 +392,7 @@ cli.push({
     try {
       devices.forEach(function (dev) {
         var value = dev.level_control_get_value()
-        console.log('onoff value ='.blue, colors.blue(value))
+        console.log('level value ='.blue, colors.blue(value))
       })
     } catch (e) {
       console.log(colors.red(e))
