@@ -14,7 +14,6 @@ module.exports.get_device_info = artik.get_device_info;
 module.exports.destroy = artik.destroy;
 
 module.exports.adc = artik.adc;
-module.exports.cloud = artik.cloud;
 module.exports.http = artik.http;
 module.exports.i2c = artik.i2c;
 module.exports.media = artik.media;
@@ -34,3 +33,4 @@ module.exports.serial = require('./serial');
 module.exports.websocket = require('./websocket');
 module.exports.lwm2m = require('./lwm2m');
 module.exports.mqtt = require('./mqtt');
+module.exports.cloud = require('./cloud');
