@@ -566,7 +566,10 @@ cli.push({
     try {
       devices.forEach(function (dev) {
         console.log('try set to', args[1])
-        dev.groups_set_local_name_support(args[1])
+        if (args[1] == 'true')
+        	dev.groups_set_local_name_support(true)
+        else
+        	dev.groups_set_local_name_support(false)
       })
     } catch (e) {
       console.log(colors.red(e))
