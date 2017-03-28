@@ -38,6 +38,21 @@ var objects = {
         timeZone: 'Europe/Paris',
         utcOffset: '+01:00',
         bindingModes: 'U'
+    },
+    conn_monitoring: {
+	netbearer : 0,
+	avalnetbearer : 1,
+	signalstrength : 12,
+	linkquality : 1,
+	ipaddr : '192.168.1.34',
+	ipaddr2 : '192.168.1.225',
+	routeaddr : '1.1.1.1',
+	routeaddr2 : '1.6.7.8',
+	linkutilization : 1,
+	apn : 'SAMI2_5G',
+	cellid : 386,
+	smnc : 189,
+	smcc : 33
     }
 };
 
@@ -56,8 +71,44 @@ testCase('Lwm2m', function() {
 			if (!dtls_psk_id || !dtls_psk_key || !dtls_psk_id.length || !dtls_psk_key.length)
 				this.skip();
 
-			lwm2m.client_connect(server_id, server_uri, dtls_psk_id, lifetime, JSON.stringify(objects), dtls_psk_id, dtls_psk_key);
+			lwm2m.client_connect(server_id, server_uri, dtls_psk_id, lifetime, objects, dtls_psk_id, dtls_psk_key);
 			done();
+		});
+	});
+
+	testCase('serialize_tlv_int()', function() {
+		assertions('Serialize array of integer', function(done) {
+		    var buff_int_serialized = lwm2m.serialize_tlv_int([0, 1]);
+		    console.log("Integer buffer serialized :")
+		    for (var i = 0; i < buff_int_serialized.length; ++i )
+		    {
+			process.stdout.write(" " + buff_int_serialized.readUInt8(i));
+		    }
+		    process.stdout.write("\n");
+		    var resource_uri = "/3/0/11";
+		    lwm2m.client_write_resource(resource_uri, buff_int_serialized);
+		    var reg = lwm2m.client_read_resource(resource_uri);
+		    console.log("response :"+reg)
+		    assert.equal(reg.toString("utf-8", 0, 7), "0=0,1=1");
+		    done();
+		});
+	});
+
+	testCase('serialize_tlv_string()', function() {
+		assertions('Serialize array of string', function(done) {
+		    var buff_str_serialized = lwm2m.serialize_tlv_string(["192.168.1.27", "192.168.9.9"]);
+		    console.log("String buffer serialized :")
+		    for (var i = 0; i < buff_str_serialized.length; ++i )
+		    {
+			process.stdout.write(" " + buff_str_serialized.readUInt8(i));
+		    }
+		    process.stdout.write("\n");
+		    var resource_uri = "/4/0/4";
+		    lwm2m.client_write_resource(resource_uri, buff_str_serialized);
+		    var reg = lwm2m.client_read_resource(resource_uri);
+		    console.log("response :"+reg)
+		    assert.equal(reg.toString("utf-8", 0, 5), "0=,1=");
+		    done();
 		});
 	});
 
@@ -74,18 +125,18 @@ testCase('Lwm2m', function() {
 	});
 
 	testCase('client_write_resource()', function() {
-		assertions('Write the resource', function(done) {
+	    assertions('Write the resource', function(done) {
 
-			if (!dtls_psk_id || !dtls_psk_key || !dtls_psk_id.length || !dtls_psk_key.length)
-				this.skip();
+		if (!dtls_psk_id || !dtls_psk_key || !dtls_psk_id.length || !dtls_psk_key.length)
+		    this.skip();
 
-			var resource_uri = "/3/0/3";
-            var buf = new Buffer("2.0");
-            lwm2m.client_write_resource(resource_uri, buf);
-            var reg = lwm2m.client_read_resource(resource_uri);
-			assert.equal(reg, "2.0");
-			done();
-		});
+		var resource_uri = "/3/0/3";
+		var buf = new Buffer("2.0");
+		lwm2m.client_write_resource(resource_uri, buf);
+		var reg = lwm2m.client_read_resource(resource_uri);
+		assert.equal(reg, "2.0");
+		done();
+	    });
 	});
 
 

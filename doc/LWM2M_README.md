@@ -115,6 +115,42 @@ Read LWM2M resource value.
 
 *String*: Error message
 
+##serialize_tlv_int
+
+```javascript
+Buffer serialize_tlv_int(Array array_of_int)
+```
+
+**Description**
+
+Serialize an array of integer under the TLV format.
+
+**Parameters**
+
+ - *Array*: array_of_int is the data to serialize.
+
+**Return value**
+
+*String*: Error message or the buffer filled
+
+##serialize_tlv_string
+
+```javascript
+Buffer serialize_tlv_string(Array array_of_str)
+```
+
+**Description**
+
+Serialize an array of string under the TLV format.
+
+**Parameters**
+
+ - *Array*: array_of_str is the data to serialize.
+
+**Return value**
+
+*String*: Error message or the buffer filled
+
 **Example**
 
 See [full example](#full-example)

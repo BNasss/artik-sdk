@@ -42,3 +42,11 @@ Lwm2m.prototype.client_read_resource = function(uri) {
     return this.lwm2m.client_read_resource(uri);
 }
 
+Lwm2m.prototype.serialize_tlv_int = function(array_data) {
+    return this.lwm2m.serialize_tlv_int(array_data);
+}
+
+Lwm2m.prototype.serialize_tlv_string = function(array_data) {
+    return this.lwm2m.serialize_tlv_string(array_data);
+}
+

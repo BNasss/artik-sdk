@@ -65,8 +65,9 @@ rl.on('line', function(line) {
     rl.prompt();
 });
 
+
 lwm2m.on('started', function() {
-    lwm2m.client_connect(server_id, server_uri, dtls_psk_id, lifetime, JSON.stringify(objects), 
+    lwm2m.client_connect(server_id, server_uri, dtls_psk_id, lifetime, objects,
         dtls_psk_id, dtls_psk_key);
 });
 
