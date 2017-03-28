@@ -61,13 +61,10 @@ znode.on('device_discover', function (event) {
       devLevelSwitch.onoff_command(ep, 'off')
       /* Send command: 'moveup', 'movedown', 'moveto', 'stepup', 'stepdown', 'stop' */
       devLevelSwitch.level_control_request(ep, {
-        type: 'moveto',
-        value: 0
-      })
-      devLevelSwitch.level_control_request(ep, {
         type: 'stepup',
         value: 3,
-        auto_onoff: true
+        auto_onoff: true,
+        transition_time: 10
       })
     })
   } else {

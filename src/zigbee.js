@@ -414,7 +414,7 @@ module.exports.Zigbee = Zigbee
  *   @param {Object} levelCommand {
  *     type: {String}, ('stop', 'moveup', 'movedown', 'moveto', 'stepup', 'stepdown')
  *     value: {Number},
- *     transition_time: {Number}, (optional. default 0)
+ *     transition_time: {Number}, (optional. default 0, tenths of a second)
  *     auto_onoff: {Boolean} (optional. default false)
  *   }
  *

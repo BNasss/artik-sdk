@@ -41,6 +41,7 @@ znode.on('basic_reset_to_factory', function (obj) { console.log(obj) })
 znode.on('level_control', function (obj) { console.log(obj) })
 
 znode.on('network_notification', function (event) {
+  console.log('network notification'.blue, event)
   if (event.status === 'find_form') {
     console.log('permitjoin(60 secs)')
     znode.network_permitjoin(60)
@@ -364,8 +365,8 @@ cli.push({
 
 cli.push({
   cmd: 'set_level',
-  args: '{type} {level}',
-  help: [ 'level_control_request()', '- {type}: moveto/moveup/movedown/...' ],
+  args: '{type} {N:level} {t}',
+  help: [ 'level_control_request()', '- {type}: moveto/moveup/movedown/...', '- {t}: transition time (1/10 secs)' ],
   completions: ['moveup', 'movedown', 'moveto', 'stepup', 'stepdown', 'stop'],
   func: function (args) {
     try {
@@ -375,7 +376,8 @@ cli.push({
           dev.level_control_request(ep, {
             type: args[1],
             value: args[2],
-            auto_onoff: true
+            auto_onoff: true,
+            transition_time: (args[3] === undefined) ? 10 : args[3] /* default 1 sec */
           })
         })
       })
@@ -566,10 +568,7 @@ cli.push({
     try {
       devices.forEach(function (dev) {
         console.log('try set to', args[1])
-        if (args[1] == 'true')
-        	dev.groups_set_local_name_support(true)
-        else
-        	dev.groups_set_local_name_support(false)
+        dev.groups_set_local_name_support((args[1] === 'true'))
       })
     } catch (e) {
       console.log(colors.red(e))
