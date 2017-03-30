@@ -60,11 +60,12 @@ znode.on('device_discover', function (event) {
     event.device.endpoints.forEach(function (ep) {
       /* Reporting request for illuminance
        * - interval: 4 ~ 10 secs
-       * - threshold: 1.0
-       * if there is no change for 10 secs,
-       * the current value is received as a report_attribute event.
+       * - threshold: 5
+       * If there are no changes for 10 secs, the current value of the light
+       * sensor is reported as a report_attribute event. If the change is
+       * greater than the threshold, the event is reported after 4 secs.
        */
-      devRemoteControl.request_reporting(ep, 'measured_illuminance', 4, 10, 1.0)
+      devRemoteControl.request_reporting(ep, 'measured_illuminance', 4, 10, 5)
     })
   } else {
     console.log('device discover status:', event.status)

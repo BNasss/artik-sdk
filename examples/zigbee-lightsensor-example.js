@@ -93,9 +93,9 @@ if (options.mode === 'ezmode') {
   }
 }
 
-devLightSensor.illum_set_measured_value_range(1, 100)
+devLightSensor.illum_set_measured_value_range(1, 65534)
 
-var testValue = 1
+var testValue = 10001
 setInterval(function () {
   console.log('Update sensor value to', testValue)
   devLightSensor.illum_set_measured_value(testValue)

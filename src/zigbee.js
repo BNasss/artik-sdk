@@ -423,17 +423,24 @@ module.exports.Zigbee = Zigbee
  *   @return {Number} Current level of this device.
  *
  * - illum_set_measured_value_range(min, max)
- *   Set the range of illuminance in Lux (symbol lx)
- *   @param {Number} min Min illuminance value, unit is lx. should same or bigger than 1.
- *   @param {Number} max Max illuminance value, unit is lx. should same or less than 3,576,000.
+ *   Set the range of illuminance in measured value(1 to 65534(0xFFFE))
+ *   Max value shall be greater than min value.
+ *   @param {Number} min Min measured value
+ *   @param {Number} max Max measured value
  *
  * - illum_set_measured_value(value)
- *   Set the Illuminance in Lux (symbol lx)
- *   @param {Number} value Illuminance value.
+ *   Set the measured illuminance value.
+ *   The value should calculated as logarithm with base 10
+ *     10,000 x log10(Illuminance) + 1
+ *   The possible illuminance are in the range 1 lx to 3.576 x 10^6 lx,
+ *   corresponding to values of 1 to 0xFFFE.
+ *   e.g. To set the sensor to 10 lx, use calculated value 10001.
+ *   @param {Number} value measured value, in the range 1 to 65534(0xFFFE)
  *
  * - illum_get_measured_value()
- *   Get the Illuminance in Lux (symbol lx)
- *   @return {Number} Illuminance value
+ *   Get the measured illuminance value.
+ *   e.g. The returned value 10001 means 10 lx.
+ *   @return {Number} measured value, in the range 1 to 65534(0xFFFE)
  *
  * - request_reporting(endpoint, command, min_interval, max_interval, threshold)
  *   Notice device server to report the attribute.
