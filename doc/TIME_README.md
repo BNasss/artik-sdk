@@ -1,6 +1,6 @@
 # Time API
 
-##set_time
+## set_time
 
 ```javascript
 	Number set_time(Date date)
@@ -25,7 +25,7 @@ Set the current system time
 	time.set_time(today);
 ```
 
-##get_time
+## get_time
 
 ```javascript
 	Date get_time()
@@ -49,7 +49,7 @@ None
 	var now = time.get_time();
 ```
 
-##get_time_str
+## get_time_str
 ```javascript
 	String get_time_str(String format, Number timezone)
 ```
@@ -103,7 +103,7 @@ Where:
 	console.log('UTC current time is ' + time.get_time_str('h:m:s:S-d-D/M/Y', 0); 
 ```
 
-##get_tick
+## get_tick
 
 ```javascript
 	Number get_tick()
@@ -127,7 +127,7 @@ None
 	console.log('System tick: ' + get_tick());
 ```
 
-##create_alarm_second
+## create_alarm_second
 
 ```javascript
 	create_alarm_second(Number timezone, Number seconds, function())
@@ -175,7 +175,7 @@ None
 	});
 ```
 
-##create_alarm_date
+## create_alarm_date
 
 ```javascript
 	create_alarm_date(Number timezone, Date date, function())
@@ -224,7 +224,7 @@ None
 	});
 ```
 
-##sync_ntp
+## sync_ntp
 
 ```javascript
 	Number sync_ntp(String hostname)

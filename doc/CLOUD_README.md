@@ -1,6 +1,6 @@
-#Cloud API
+# Cloud API
 
-##Constructor
+## Constructor
 
 ```javascript
 var cl = new cloud(String token);
@@ -25,7 +25,7 @@ New instance.
 var cl = new cloud('<authorization token>');
 ```
 
-##send_message
+## send_message
 
 ```javascript
 String send_message(String device_id, String message, function(String response))
@@ -58,7 +58,7 @@ send_message('<device ID>', msg, function(response){
 });
 ```
 
-##send_action
+## send_action
 
 ```javascript
 String send_action(String device_id, String action, function(String response))
@@ -91,7 +91,7 @@ send_action('<device ID>', seton, function(response){
 });
 ```
 
-##get_current_user_profile
+## get_current_user_profile
 
 ```javascript
 String get_current_user_profile(function(String response))
@@ -121,7 +121,7 @@ get_current_user_profile(function(response){
 });
 ```
 
-##get_user_devices
+## get_user_devices
 
 ```javascript
 String get_user_devices(Number count, Boolean properties, Number offset, String user_id, function(String response))
@@ -155,7 +155,7 @@ get_user_devices(10, false, 0, '<user ID>', function(response){
 });
 ```
 
-##get_user_device_types
+## get_user_device_types
 
 ```javascript
 String get_user_device_types(Number count, Boolean shared, Number offset, String user_id, function(String response))
@@ -189,7 +189,7 @@ get_user_device_types(10, false, 0, '<user ID>', function(response){
 });
 ```
 
-##get_user_application_properties
+## get_user_application_properties
 
 ```javascript
 String get_user_application_properties(String user_id, String app_id, function(String response))
@@ -221,7 +221,7 @@ get_user_application_properties('<user ID>', '<app ID>', function(response){
 });
 ```
 
-##get_device
+## get_device
 
 ```javascript
 String get_device(String device_id, Boolean properties, function(String response))
@@ -253,7 +253,7 @@ get_device('<device ID>', true, function(response){
 });
 ```
 
-##get_device_token
+## get_device_token
 
 ```javascript
 String get_device_token(String device_id, function(String response))
@@ -284,7 +284,7 @@ get_device_token('<device ID>', function(response){
 });
 ```
 
-##add_device
+## add_device
 
 ```javascript
 String add_device(String user_id, String device_type_id, String name, function(String response))
@@ -317,7 +317,7 @@ add_device('<user ID>', '<device type ID>', 'Heartrate sensor', function(respons
 });
 ```
 
-##delete_device
+## delete_device
 
 ```javascript
 String delete_device(String user_id, String device_type_id, String name, function(String response))
@@ -348,7 +348,7 @@ delete_device('<device ID>', function(response){
 });
 ```
 
-##update_device_token
+## update_device_token
 
 ```javascript
 String update_device_token(String device_id, function(String response))
@@ -379,7 +379,7 @@ update_device_token('<device ID>', function(response){
 });
 ```
 
-##delete_device_token
+## delete_device_token
 
 ```javascript
 String delete_device_token(String device_id, function(String response))
@@ -410,7 +410,7 @@ delete_device_token('<device ID>', function(response){
 });
 ```
 
-##sdr_start_registration
+## sdr_start_registration
 
 ```javascript
 String sdr_start_registration(String device_type_id, String vendor_id, function(String response))
@@ -438,7 +438,7 @@ containing the response from the cloud otherwise (synchronous call).
 
 See [Secure Device Registration example](#secure-device-registration-example)
 
-##sdr_registration_status
+## sdr_registration_status
 
 ```javascript
 String sdr_registration_status(String registration_id, function(String response))
@@ -465,7 +465,7 @@ containing the response from the cloud otherwise (synchronous call).
 
 See [Secure Device Registration example](#secure-device-registration-example)
 
-##sdr_complete_registration
+## sdr_complete_registration
 
 ```javascript
 String sdr_complete_registration(String registration_id, String nonce, function(String response))
@@ -495,16 +495,16 @@ containing the response from the cloud otherwise (synchronous call).
 
 See [Secure Device Registration example](#secure-device-registration-example)
 
-#Full example
+# Full example
 
-##Secure Device Registration example
+## Secure Device Registration example
 
 Full SDR procedure is documented [here](https://developer.artik.cloud/documentation/advanced-features/secure-your-devices.html)
 
 See [sdr-example.js](/examples/sdr-example.js) for client side implementation.
 
-##Websocket example
+## Websocket example
    * See [cloud-websocket-example.js](/examples/cloud-websocket-example.js)
 
-##Other example
+## Other example
    * See [cloud-example.js](/examples/cloud-example.js)

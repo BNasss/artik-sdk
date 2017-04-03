@@ -1,7 +1,7 @@
-#Bluetooth SPP API
+# Bluetooth SPP API
 
 ## class SppProfile
-###Constructor
+### Constructor
 ```javascript
 var profile = new bluetooth.SppProfile(String name, String service, String role, Number channel, Number PSM, Boolean require_authentication, Boolean require_authorization, Boolean auto_connect, Number version, Number features);
 ```
@@ -100,7 +100,7 @@ socket.on('data', function(error, buffer) { console.log("data = " + buffer); });
 
 ## class Spp
 
-###Constructor
+### Constructor
 ```javascript
 var spp = new bluetooth.Spp();
 ```
@@ -124,7 +124,7 @@ var spp = new bluetooth.Spp();
 ```
 
 
-###register_profile
+### register_profile
 ```javascript
 register_profile(SppProfile profile)
 ```
@@ -146,7 +146,7 @@ None
 spp.register_profile(profile);
 ```
 
-###unregister_profile
+### unregister_profile
 ```javascript
 unregister_profile();
 ```

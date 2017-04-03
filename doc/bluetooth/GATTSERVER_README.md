@@ -1,6 +1,6 @@
 # Bluetooth GATT Server API
 ## class GattServer.Service
-###Constructor
+### Constructor
 ```javascript
 var serv = new bluetooth.GattServer.Service({
   uuid: String,
@@ -30,7 +30,7 @@ var serv = new bluetooth.GattServer.Service({
 ```
 
 ## class GattServer.Characteristic
-###Characteristic properties
+### Characteristic properties
 |                     Property                        |           Value        |
 |:---------------------------------------------------:|:----------------------:|
 | The characteristic is broadcastable                 | broadcast              |
@@ -40,7 +40,7 @@ var serv = new bluetooth.GattServer.Service({
 | The characteristic supports notification            | notify                 |
 | The characteristic supports indication              | indicate               |
 | The characteristic supports write with signature    | signed-write           |
-###Constructor
+### Constructor
 ```javascript
 var char = new bluetooth.GattServer.Characteristic({
   uuid: String,
@@ -85,7 +85,7 @@ var characteristic = new GattServer.Characteristic({
 
 ## class GattServer.Descriptor
 
-###Descriptor properties
+### Descriptor properties
 |               Descriptor property                        |       Value    |
 |:--------------------------------------------------------:|:--------------:|
 | The descriptor is readable                               | read           |
@@ -96,7 +96,7 @@ var characteristic = new GattServer.Characteristic({
 | The descriptor supports encrypted and authenticated write| enc-auth-write |
 | The descriptor supports secure read                      | sec-read       |
 | The descriptor supports secure wirte                     | sec-write      |
-###Constructor
+### Constructor
 ```javascript
 var desc = new bluetoot.GattServer.Descriptor({
   uuid: String,
@@ -125,7 +125,7 @@ The new instance.
 
 **Example**
 ## class GattServer
-###Constructor
+### Constructor
 ```javascript
 var gatt_server = new bluetooth.GattServer();
 ```
@@ -149,7 +149,7 @@ var gatt_server = new bluetooth.GattServer();
 ```
 
 
-###start_advertising
+### start_advertising
 ```javascript
 Number start_advertising({
   type: String,
@@ -183,7 +183,7 @@ Start advertising over the LE chanel.
 
 ```
 
-###stop_advertising
+### stop_advertising
 ```javascript
 stop_adertising(Number id)
 ```
@@ -205,6 +205,6 @@ None
 gatt_server.stop_advertising(0);
 ```
 
-##Full example
+## Full example
 
   * See [bluetooth-gattserver-example.js](/examples/bluetooth-gattserver-example.js)

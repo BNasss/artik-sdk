@@ -1,7 +1,7 @@
-#Bluetooth API
-##class AdapterInfo
-###Attributes
-####address
+# Bluetooth API
+## class AdapterInfo
+### Attributes
+#### address
 ```javascript
 String address
 ```
@@ -10,7 +10,7 @@ String address
 
 The bluetooth mac address of the adapter.
 
-####name
+#### name
 ```javascript
 String name
 ```
@@ -19,7 +19,7 @@ String name
 
 The bluetooth system name.
 
-####alias
+#### alias
 ```javascript
 String alias
 ```
@@ -29,7 +29,7 @@ String alias
 The bluetooth friendly name.
 In case of no alias is set it will set with the bluetooth system name.
 
-####cod
+#### cod
 ```javascript
 {
 	String major;
@@ -41,7 +41,7 @@ In case of no alias is set it will set with the bluetooth system name.
 **Description**
 The bluetooth class of device.
 
-####discoverable
+#### discoverable
 ```javascript
 Boolean discoverable;
 ```
@@ -49,7 +49,7 @@ Boolean discoverable;
 **Description**
 Indicate the disocverable mode.
 
-####pairable
+#### pairable
 ```javascript
 Boolean pairable;
 ```
@@ -57,7 +57,7 @@ Boolean pairable;
 **Description**
 Indicate the pairable mode.
 
-####pair_timeout
+#### pair_timeout
 ```javascript
 Number pair_timeout;
 ```
@@ -65,7 +65,7 @@ Number pair_timeout;
 **Description**
 The pairable timeout in seconds. A value of zero means that the timeout is disabled.
 
-####discover_timeout
+#### discover_timeout
 ```javascript
 Number discover_timeout;
 ```
@@ -73,7 +73,7 @@ Number discover_timeout;
 **Description**
 The discoverable timeout in seconds. A value of zero means that the timeout is disbaled.
 
-####discovering
+#### discovering
 ```javascript
 Boolean discovering;
 ```
@@ -81,7 +81,7 @@ Boolean discovering;
 **Description**
 Indicate that a device discovery procedure is active.
 
-####uuids
+#### uuids
 ```javascript
 Uuid = {
   String uuid,
@@ -93,8 +93,8 @@ Array[Uuid] uuids;
 **Description**
 List of 128-bit UUIDs that represents the available local services.
 
-##class Filter
-###Scan type
+## class Filter
+### Scan type
 
 |     Scan type    | Value |
 |:----------------:|:-----:|
@@ -102,7 +102,7 @@ List of 128-bit UUIDs that represents the available local services.
 | BR/EDR scan      | bredr |
 | LE scan          |  le   |
 
-###Constructor
+### Constructor
 
 ```javascript
 var filter = new bluetooth.Filter(Number rssi, String[] uuids, String type);
@@ -128,9 +128,9 @@ New Instance
 var filter = new Filter(-70, [], 'LE');
 ```
 
-##class Bluetooth
+## class Bluetooth
 
-###Remote device property
+### Remote device property
 
 |                property              |  value |
 |:------------------------------------:|:------:|
@@ -138,7 +138,7 @@ var filter = new Filter(-70, [], 'LE');
 | The bluetooth device name            | Name   |
 | The name alias for the remote device | Alias  |
 
-###Constructor
+### Constructor
 ```javascript
 var bt = new bluetooth();
 ```
@@ -161,7 +161,7 @@ None
 var bt = new bluetooth();
 ```
 
-###start_scan
+### start_scan
 
 ```javascript
 start_scan()
@@ -185,7 +185,7 @@ None
 bt.start_scan();
 ```
 
-###stop_scan
+### stop_scan
 
 ```javascript
 stop_scan()
@@ -209,7 +209,7 @@ None
 bluetooth.stop_scan();
 ```
 
-###get_devices
+### get_devices
 
 ```javascript
 String get_devices()
@@ -235,7 +235,7 @@ properties.
 console.log('Discovered devices: ' + bt.get_devices());
 ```
 
-###get_connected_devices
+### get_connected_devices
 
 ```javascript
 String get_connected_devices()
@@ -260,7 +260,7 @@ properties.
 console.log('Connected devices: ' + bt.get_connected_devices());
 ```
 
-###get_paired_devices
+### get_paired_devices
 
 ```javascript
 String get_paired_devices()
@@ -285,7 +285,7 @@ properties.
 console.log('Paired devices: ' + bt.get_paired_devices());
 ```
 
-###start_bond
+### start_bond
 
 ```javascript
 start_bond(String addr)
@@ -309,7 +309,7 @@ None
 bt.start_bond('01:02:03:04:05:06');
 ```
 
-###stop_bond
+### stop_bond
 
 ```javascript
 stop_bond(String bdaddr)
@@ -333,7 +333,7 @@ None
 bt.stop_bond('01:02:03:04:05:06');
 ```
 
-###connect
+### connect
 
 ```javascript
 None connect(String bdaddr)
@@ -357,7 +357,7 @@ None
 bt.connect('01:02:03:04:05:06');
 ```
 
-###disconnect
+### disconnect
 
 ```javascript
 disconnect(String bdaddr)
@@ -381,7 +381,7 @@ None
 bt.disconnect('01:02:03:04:05:06');
 ```
 
-###remove_unpaired_devices
+### remove_unpaired_devices
 
 ```javascript
 remove_unpaired_devices()
@@ -406,7 +406,7 @@ None
 bt.remove_unpaired_devices();
 ```
 
-###remove_device
+### remove_device
 
 ```javascript
 remove_device(String bdaddr)
@@ -430,7 +430,7 @@ None
 bt.remove_device('01:02:03:04:05:06');
 ```
 
-###set_scan_filter
+### set_scan_filter
 
 ```javascript
 set_scan_filter(Filter filter)
@@ -454,7 +454,7 @@ var filter = new Filter(-70, [], 'LE');
 bt.set_scan_filter(filter);
 ```
 
-###get_adapter_info
+### get_adapter_info
 ```javascript
 AdapterInfo get_adapter_info()
 ```
@@ -476,7 +476,7 @@ None
 bt.get_adapter_info();
 ```
 
-###set_alias
+### set_alias
 ```javascript
 set_alias(String alias);
 ```
@@ -499,7 +499,7 @@ None
 bt.set_alias("My bluetooth device");
 ```
 
-###set_discoverable
+### set_discoverable
 ```javascript
 set_discoverable(Boolean discoverable);
 ```
@@ -522,7 +522,7 @@ None
 bt.set_discoverable(true);
 ```
 
-###set_discoverableTimeout
+### set_discoverableTimeout
 ```javascript
 set_discoverableTimeout(Number timeout);
 ```
@@ -546,7 +546,7 @@ None
 bt.set_discoverableTimeout(10);
 ```
 
-###set_pairable
+### set_pairable
 ```javascript
 set_pairable(Boolean pairable);
 ```
@@ -569,7 +569,7 @@ None
 bt.set_pairable(false)
 ```
 
-###set_pairableTimeout
+### set_pairableTimeout
 ```javascript
 set_pairableTimeout(Number timeout);
 ```
@@ -593,7 +593,7 @@ None
 bt.set_pairableTimeout(0);
 ```
 
-###get_device_property
+### get_device_property
 ```javascript
 String get_device_property(String addr, String property);
 ```
@@ -617,7 +617,7 @@ var name = bt.get_device_property("01:02:03:04:05:06", "Name");
 console.log("Name of 01:02:03:04:05:06 is " + name);
 ```
 
-###connect_profile
+### connect_profile
 ```javascript
 connect_profile(String add, String uuid);
 ```
@@ -640,7 +640,7 @@ None
 bt.connect_profile("01:02:03:04:05:06", "0000180f-0000-1000-8000-00805f9b34fb");
 ```
 
-###is_scanning
+### is_scanning
 ```javascript
 Boolean is_scanning()
 ```
@@ -664,7 +664,7 @@ var is_scanning = bt.is_scanning()
 console.log("Bluetooth adapter is scanning: " + is_scanning);
 ```
 
-###is_paired
+### is_paired
 ```javascript
 Boolean is_paired(String addr);
 ```
@@ -687,7 +687,7 @@ var is_paired = bt.is_paired("01:02:03:04:05:06");
 console.log("The bluetooth device 01:02:03:04:05:06 is paired: " + is_paired);
 ```
 
-###is_connected
+### is_connected
 ```javascript
 Boolean is_connected(String addr);
 ```
@@ -710,7 +710,7 @@ var is_connected = bt.is_connected("01:02:03:04:05:06");
 console.log("The bluetooth device 01:02:03:04:05:06 is connected: " + is_connected);
 ```
 
-###is_trusted
+### is_trusted
 ```javascript
 Boolean is_trusted(String addr);
 ```
@@ -733,7 +733,7 @@ var is_trusted = bt.is_trusted("01:02:03:04:05:06");
 console.log("The bluetooth device 01:02:03:04:05:06 is trusted: " + is_trusted);
 ```
 
-###is_blocked
+### is_blocked
 ```javascript
 Boolean is_blocked(String addr);
 ```
@@ -756,7 +756,7 @@ var is_blocked = bt.is_blocked("01:02:03:04:05:06");
 console.log("The bluetooth device 01:02:03:04:05:06 is blocked:" + is_blocked);
 ```
 
-###set_trust
+### set_trust
 ```javascript
 set_trust(String addr);
 ```
@@ -778,7 +778,7 @@ None
 bt.set_trust("01:02:03:04:05:06");
 ```
 
-###unset_trust
+### unset_trust
 ```javascript
 unset_trust(String addr);
 ```
@@ -800,7 +800,7 @@ None
 bt.unset_trust("01:02:03:04:05:06");
 ```
 
-###set_block
+### set_block
 ```javascript
 set_block(String addr);
 ```
@@ -822,7 +822,7 @@ None
 bt.set_block("01:02:03:04:05:06");
 ```
 
-###unset_block
+### unset_block
 ```javascript
 unset_block(String addr);
 ```
@@ -844,8 +844,8 @@ None
 bt.set_unblock("01:02:03:04:05:06");
 ```
 
-###Events
-####started
+### Events
+#### started
 ```javascript
 bt.on('started', function());
 ```
@@ -863,7 +863,7 @@ None
 bt.on('started', function() { console.log('onstarted'); });
 ```
 
-####scan
+#### scan
 ```javascript
 bt.on('scan', function(String err, String device));
 ```
@@ -882,7 +882,7 @@ Called every time devices is discovered.
 bt.on('scan', function(err, device) { console.log('onscan (err=' + err + '): ' + device); });
 ```
 
-####bond
+#### bond
 ```javascript
 bt.on('bond', function(String err, Boolean paired));
 ```
@@ -901,7 +901,7 @@ Called every time a device is paired or unpaired.
 bt.on('bond', function(err, paired) { console.log('bonded (err=' + err +'): ' + paired); });
 ```
 
-####connect
+#### connect
 ```javascript
 bt.on('connect', function(String err, Boolean connected));
 ```
@@ -920,6 +920,6 @@ Called every time a device is connected or disconnected.
 bt.on('connect', function(err, connected) { console.log('connected (err=' + err + '): ' + connected); });
 ```
 
-##Full example
+## Full example
 
    * See [bluetooth-example.js](/examples/bluetooth-example.js)

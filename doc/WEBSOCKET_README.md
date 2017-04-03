@@ -1,6 +1,6 @@
-#Websocket API
+# Websocket API
 
-##Constructor
+## Constructor
 
 ```javascript
 var ws = new websocket(String host, String uri, Number port, Number ssl, Boolean use_se);
@@ -29,7 +29,7 @@ New instance.
 var cloud = new websocket('api.artik.cloud', '/v1.1/websocket', 443, 1, 0);
 ```
 
-##open_stream
+## open_stream
 
 ```javascript
 Number open_stream()
@@ -53,7 +53,7 @@ None.
 
 See [full example](#full-example)
 
-##close_stream
+## close_stream
 
 ```javascript
 Number close_stream()
@@ -77,7 +77,7 @@ None.
 
 See [full example](#full-example)
 
-##write_stream
+## write_stream
 
 ```javascript
 Number write_stream(String data)
@@ -99,9 +99,9 @@ Send data over the websocket.
 
 See [full example](#full-example)
 
-#Events
+# Events
 
-##connected
+## connected
 
 ```javascript
 ws.on('connected', function(String))
@@ -121,7 +121,7 @@ manually or by the remote host.
 
 See [full example](#full-example)
 
-##receive
+## receive
 
 ```javascript
 ws.on('receive', function(String))
@@ -139,6 +139,6 @@ Called after a data was received on the websocket.
 
 See [full example](#full-example)
 
-#Full example
+# Full example
 
    * See [websocket-example.js](/examples/websocket-example.js)

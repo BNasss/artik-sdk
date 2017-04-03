@@ -38,4 +38,10 @@
   * [Wi-Fi API](/doc/WIFI_README.md)
 
 ## 8. ZigBee
-  * [ZigBee API](doc/ZIGBEE_README.md)
+  * [ZigBee API](/doc/ZIGBEE_README.md)
+  
+## 9. LWM2M
+  * [LWM2M API](/doc/LWM2M_README.md)
+
+## 10. MQTT
+  * [MQTT API](/doc/MQTT_README.md)

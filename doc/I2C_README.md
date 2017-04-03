@@ -1,6 +1,6 @@
-#I2C API
+# I2C API
 
-##Constructor
+## Constructor
 
 ```javascript
 var chip = new i2c(Number id, Number frequency, String word_size, Number address);
@@ -26,7 +26,7 @@ New instance.
 
 See [Full example](#full-example)
 
-##request
+## request
 
 ```javascript
 Number request()
@@ -51,7 +51,7 @@ None.
 
 See [Full example](#full-example)
 
-##release
+## release
 
 ```javascript
 Number release()
@@ -74,7 +74,7 @@ None.
 
 See [Full example](#full-example)
 
-##read
+## read
 
 ```javascript
 Buffer read(Number length)
@@ -96,7 +96,7 @@ Perform a read transaction over the I2C bus.
 
 See [Full example](#full-example)
 
-##write
+## write
 
 ```javascript
 Number write(Buffer data)
@@ -118,7 +118,7 @@ Perform a write transaction over the I2C bus.
 
 See [Full example](#full-example)
 
-##read_register
+## read_register
 
 ```javascript
 Buffer read_register(Number address, Number length)
@@ -141,7 +141,7 @@ Read a register from a remote I2C chip.
 
 See [Full example](#full-example)
 
-##write_register
+## write_register
 
 ```javascript
 Number write_register(Number address, Buffer data)
@@ -164,6 +164,6 @@ Write to a register on a remote I2C chip.
 
 See [Full example](#full-example)
 
-#Full example
+# Full example
 
    * See [i2c-example.js](/examples/i2c-example.js)

@@ -1,6 +1,6 @@
-#HTTP API
+# HTTP API
 
-#get
+# get
 
 ```javascript
 String get(String uri, String[] headers, function(String response))
@@ -36,7 +36,7 @@ containing the response from the host otherwise (synchronous call).
 
 See [Full example](#full-example)
 
-#post
+# post
 
 ```javascript
 String post(String uri, String[] headers, String body, function(String response))
@@ -72,7 +72,7 @@ containing the response from the host otherwise (synchronous call).
 
 See [Full example](#full-example)
 
-#put
+# put
 
 ```javascript
 String put(String uri, String[] headers, String body, function(String response))
@@ -108,7 +108,7 @@ containing the response from the host otherwise (synchronous call).
 
 See [Full example](#full-example)
 
-#delete
+# delete
 
 ```javascript
 String delete(String uri, String[] headers, function(String response))
@@ -144,6 +144,6 @@ containing the response from the host otherwise (synchronous call).
 
 See [Full example](#full-example)
 
-#Full example
+# Full example
 
    * See [http-example.js](/examples/http-example.js)

@@ -1,6 +1,6 @@
-#Network API
+# Network API
 
-##get_current_ip
+## get_current_ip
 
 ```javascript
 String get_current_ip()
@@ -24,7 +24,7 @@ None.
 console.log('Public IP: ' + network.get_current_ip());
 ```
 
-##get_online_status
+## get_online_status
 
 ```javascript
 Boolean get_online_status()
@@ -47,7 +47,7 @@ None.
 ```javascript
 console.log('Connectivity status: ' + network.get_online_status());
 ```
-#Events
+# Events
 
 ## connectivity-change
 
@@ -70,6 +70,6 @@ network.on("connectivity-change", function(status) {
 });
 ```
 
-#Full example
+# Full example
 
    * See [network-example.js](/examples/network-example.js)

@@ -1,4 +1,4 @@
-#Sensor API
+# Sensor API
 ## Sensor types
 | Type           | Value |
 |:---------------|:-----:|
@@ -9,7 +9,7 @@
 | Proximity      | 5     |
 | Flame          | 6     |
 
-##list
+## list
 
 ```javascript
 SensorDevice[] list()
@@ -36,7 +36,7 @@ list.forEach(function(sensor){
 });
 ```
 
-##get_sensor
+## get_sensor
 
 ```javascript
 SensorDevice get_sensor(Number index, Number type)
@@ -61,7 +61,7 @@ Return a specific sensor based on its type and index.
 var temperature = sensors.get_sensor(0, 4);
 ```
 
-##get_accelerometer_sensor
+## get_accelerometer_sensor
 
 ```javascript
 AccelerometerSensor get_accelerometer_sensor(Number index)
@@ -85,7 +85,7 @@ Return an accelerometer sensor based on its index.
 var accelerometer = sensors.get_accelerometer_sensor(0);
 ```
 
-##get_humidity_sensor
+## get_humidity_sensor
 
 ```javascript
 HumiditySensor get_humidity_sensor(Number index)
@@ -109,7 +109,7 @@ Return a humidity sensor based on its index.
 var humidity = sensors.get_humidity_sensor(0);
 ```
 
-##get_light_sensor
+## get_light_sensor
 
 ```javascript
 LightSensor get_light_sensor(Number index)
@@ -133,7 +133,7 @@ Return a light sensor based on its index.
 var light = sensors.get_light_sensor(0);
 ```
 
-##get_temperature_sensor
+## get_temperature_sensor
 
 ```javascript
 TemperatureSensor get_temperature_sensor(Number index)
@@ -157,7 +157,7 @@ Return a temperature sensor based on its index.
 var temperature = sensors.get_temperature_sensor(0);
 ```
 
-##get_proximity_sensor
+## get_proximity_sensor
 
 ```javascript
 ProximitySensor get_proximity_sensor(Number index)
@@ -181,7 +181,7 @@ Return a proximity sensor based on its index.
 var proximity = sensors.get_proximity_sensor(0);
 ```
 
-##get_flame_sensor
+## get_flame_sensor
 
 ```javascript
 FlameSensor get_flame_sensor(Number index)
@@ -205,8 +205,8 @@ Return a flame sensor based on its index.
 var flame = sensors.get_flame_sensor(0);
 ```
 
-#SensorDevice API
-##get_type
+# SensorDevice API
+## get_type
 
 ```javascript
 Number get_type()
@@ -228,7 +228,7 @@ None.
 
 See [full example](#full-example).
 
-##get_index
+## get_index
 
 ```javascript
 Number get_index()
@@ -250,7 +250,7 @@ None.
 
 See [full example](#full-example).
 
-##get_name
+## get_name
 
 ```javascript
 String get_name()
@@ -272,8 +272,8 @@ None.
 
 See [full example](#full-example).
 
-#AccelerometerSensor API
-##get_speed_x
+# AccelerometerSensor API
+## get_speed_x
 
 ```javascript
 Number get_speed_x()
@@ -295,7 +295,7 @@ None.
 
 See [full example](#full-example).
 
-##get_speed_y
+## get_speed_y
 
 ```javascript
 Number get_speed_y()
@@ -317,7 +317,7 @@ None.
 
 See [full example](#full-example).
 
-##get_speed_z
+## get_speed_z
 
 ```javascript
 Number get_speed_z()
@@ -339,8 +339,8 @@ None.
 
 See [full example](#full-example).
 
-#HumiditySensor API
-##get_humidity
+# HumiditySensor API
+## get_humidity
 
 ```javascript
 Number get_humidity()
@@ -362,8 +362,8 @@ None.
 
 See [full example](#full-example).
 
-#LightSensor API
-##get_intensity
+# LightSensor API
+## get_intensity
 
 ```javascript
 Number get_intensity()
@@ -385,8 +385,8 @@ None.
 
 See [full example](#full-example).
 
-#TemperatureSensor API
-##get_celsius
+# TemperatureSensor API
+## get_celsius
 
 ```javascript
 Number get_celsius()
@@ -408,7 +408,7 @@ None.
 
 See [full example](#full-example).
 
-##get_fahrenheit
+## get_fahrenheit
 
 ```javascript
 Number get_fahrenheit()
@@ -430,8 +430,8 @@ None.
 
 See [full example](#full-example).
 
-#ProximitySensor API
-##get_presence
+# ProximitySensor API
+## get_presence
 
 ```javascript
 Number get_presence()
@@ -453,8 +453,8 @@ None.
 
 See [full example](#full-example).
 
-#FlameSensor API
-##get_signals
+# FlameSensor API
+## get_signals
 
 ```javascript
 Number get_signals()
@@ -476,6 +476,6 @@ None.
 
 See [full example](#full-example).
 
-#Full example
+# Full example
 
    * See [sensor-example.js](/examples/sensor-example.js)

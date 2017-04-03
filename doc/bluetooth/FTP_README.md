@@ -1,7 +1,7 @@
-#Bluetooth FTP API
-##class FtpProperty
-###Attributes
-####name
+# Bluetooth FTP API
+## class FtpProperty
+### Attributes
+#### name
 ```javascript
 String name
 ```
@@ -9,7 +9,7 @@ String name
 **Description**
 Name of the transfered object.
 
-####filename
+#### filename
 ```javascript
 String filename
 ```
@@ -17,7 +17,7 @@ String filename
 **Description**
 Complete name of the file being received or sent.
 
-####status
+#### status
 ```javascript
 String status;
 ```
@@ -27,7 +27,7 @@ The current status of the transfer.
 
 Can take one of the following value "queued", "active", "suspended", "complete" or "error"
 
-####transfered
+#### transfered
 ```javascript
 Number transfered;
 ```
@@ -35,7 +35,7 @@ Number transfered;
 **Description**
 Number of bytes transferred.
 
-####size
+#### size
 ```javascript
 Number size;
 ```
@@ -43,8 +43,8 @@ Number size;
 **Description**
 Size of the transferred file.
 
-##class Ftp
-###Constructor
+## class Ftp
+### Constructor
 ```javascript
 var ftp = new bluetooth.Ftp();
 ```
@@ -67,7 +67,7 @@ None
 var bt = new bluetooth.Ftp();
 ```
 
-###create_session
+### create_session
 ```javascript
 create_session(String addr);
 ```
@@ -89,7 +89,7 @@ None
 ftp.create_session("01:02:03:04:05:06");
 ```
 
-###remove_session
+### remove_session
 ```javascript
 remove_session();
 ```
@@ -111,7 +111,7 @@ None
 ftp.remove_session();
 ```
 
-###change_folder
+### change_folder
 ```javascript
 change_folder(String folder)
 ```
@@ -133,7 +133,7 @@ None
 ftp.change_folder("/myfolder");
 ```
 
-###create_folder
+### create_folder
 ```javascript
 create_folder(String folder)
 ```
@@ -155,7 +155,7 @@ None
 ftp.create_folder("/mynewfolder");
 ```
 
-###delete_file
+### delete_file
 ```javascript
 delete_file(String file)
 ```
@@ -177,7 +177,7 @@ None
 ftp.delete_file("myfile.txt");
 ```
 
-###list_folder
+### list_folder
 ```javascript
 FileItem[] list_folder();
 ```
@@ -199,7 +199,7 @@ None
 var files = ftp.list_folder();
 ```
 
-###get_file
+### get_file
 ```javascript
 get_file(String target_file, String source_file);
 ```
@@ -222,7 +222,7 @@ None
 ftp.get_file("/tmp/test.txt", "/test.txt");
 ```
 
-###put_file
+### put_file
 ```javascript
 put_file(String source_file, String target_file);
 ```
@@ -245,7 +245,7 @@ None
 ftp.put_file("/root/file.txt", "/file.txt");
 ```
 
-###cancel_transfer
+### cancel_transfer
 ```javascript
 cancel_transfer()
 ```
@@ -267,7 +267,7 @@ None
 ftp.cancel_transfer();
 ```
 
-###resume_transfer
+### resume_transfer
 ```javascript
 resume_transfer();
 ```
@@ -289,7 +289,7 @@ None
 ftp.resume_transfer();
 ```
 
-###suspend_transfer
+### suspend_transfer
 ```javascript
 suspend_transfer();
 ```
@@ -311,7 +311,7 @@ None
 ftp.suspend_transfer();
 ```
 
-###Events
+### Events
 #### transfer
 ```javascript
 ftp.on('transfer', function(FtpProperty));
@@ -329,6 +329,6 @@ Called every time a transfer is updated.
 ftp.on('transfer', function(prop) { console.log("Transfer updated"); });
 ```
 
-##Full example
+## Full example
 
   * See [bluetooth-ftp-example.js](/examples/bluetooth-ftp-example.js)

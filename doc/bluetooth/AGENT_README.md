@@ -1,6 +1,6 @@
-#Bluetooth Agent API
+# Bluetooth Agent API
 ## class AgentRequest
-###send_pincode
+### send_pincode
 ```javascript
 send_pincode(String pincode);
 ```
@@ -22,7 +22,7 @@ None
 request.send_pincode("012345");
 ```
 
-###send_passkey
+### send_passkey
 ```javascript
 send_passkey(Number passkey);
 ```
@@ -44,7 +44,7 @@ None
 request.send_passkey(12345);
 ```
 
-###send_error
+### send_error
 ```javascript
 send_error(String error_type, String msg);
 ```
@@ -67,7 +67,7 @@ None
 request.send_error("", "Error: Wrong pincode");
 ```
 
-###send_empty_response
+### send_empty_response
 ```javascript
 send_empty_response();
 ```
@@ -90,7 +90,7 @@ request.send_empty_response();
 ```
 
 ## class Agent
-###Capability type
+### Capability type
 
 |           Capability            |        Value       |
 |:-------------------------------:|:------------------:|
@@ -100,7 +100,7 @@ request.send_empty_response();
 | Only write text                 | keyboard_only      |
 | No input and output capability  | no_input_no_output |
 
-###Constructor
+### Constructor
 ```javascript
 var agent = new bluetooth.Agent();
 ```
@@ -123,7 +123,7 @@ None
 var agent = new bluetooth.Agent();
 ```
 
-###register_capability
+### register_capability
 ```javascript
 register_capability(String capability)
 ```
@@ -145,7 +145,7 @@ None
 agent.register_capability("display_yesno");
 ```
 
-###set_default
+### set_default
 ```javascript
 set_default()
 ```
@@ -167,7 +167,7 @@ None
 agent.set_default()
 ```
 
-###unregister
+### unregister
 ```javascript
 unregister()
 ```
@@ -189,8 +189,8 @@ None
 agent.unregister()
 ```
 
-###Events
-####release
+### Events
+#### release
 ```javascript
 agent.on('release', function());
 ```
@@ -208,7 +208,7 @@ None
 agent.on('release), function() { console.log("Agent is unregistered"); });
 ```
 
-####request_pincode
+#### request_pincode
 ```javascript
 agent.on('request_pincode', function(AgentRequest request, String device));
 ```
@@ -232,7 +232,7 @@ agent.on('request_pincode', function(request, device) {
 });
 ```
 
-####display_pincode
+#### display_pincode
 ```javascript
 agent.on('display_pincode', function(String device, String pincode));
 ```
@@ -253,7 +253,7 @@ agent.on('display_pincode', function(device, pincode) {
 });
 ```
 
-####request_passkey
+#### request_passkey
 ```javascript
 agent.on('request_passkey', function(AgentRequest request, String device));
 ```
@@ -277,7 +277,7 @@ agent.on('request_passkey', function(request, device) {
 });
 ```
 
-####display_passkey
+#### display_passkey
 ```javascript
 agent.on('display_passkey', function(String device, Number passkey, Number entered));
 ```
@@ -299,7 +299,7 @@ agent.on('display_passkey', function(device, passkey, entered) {
 });
 ```
 
-####confirmation
+#### confirmation
 ```javascript
 agent.on('confirmation', function(AgentRequest request, String device, Number passkey));
 ```
@@ -324,7 +324,7 @@ agent.on('confirmation', function(request, device, passkey) {
 });
 ```
 
-####authorization
+#### authorization
 ```javascript
 agent.on('authorization', function(AgentRequest request, String device));
 ```
@@ -348,7 +348,7 @@ agent.on('authorization', function(request, device) {
 });
 ```
 
-####authorize_service
+#### authorize_service
 ```javascript
 agent.on('authorize_service', function(AgentRequest request, String device, String uuid));
 ```
@@ -373,7 +373,7 @@ agent.on('authorize_service', function(request, device, uuid) {
 });
 ```
 
-####cancel
+#### cancel
 ```javascript
 agent.on('cancel', function());
 ```
@@ -391,6 +391,6 @@ None
 agent.on('cancel', function(){ console.log("Request canceled."); });
 ```
 
-##Full example
+## Full example
 
   * See [bluetooth-agent-example.js](/examples/bluetooth-agent-example.js)

@@ -1,6 +1,6 @@
-#Serial API
+# Serial API
 
-##Baudrates
+## Baudrates
 
 | Baudrate | Value  |
 |:---------|:------:|
@@ -12,7 +12,7 @@
 | 57600    | 57600  |
 | 115200   | 115200 |
 
-##Parity
+## Parity
 
 | Parity | Value |
 |:-------|:-----:|
@@ -20,21 +20,21 @@
 | Odd    | odd   |
 | Even   | even  |
 
-##Data bits
+## Data bits
 
 | Data bits | Value |
 |:----------|:-----:|
 | 7         | 7     |
 | 8         | 8     |
 
-##Stop bits
+## Stop bits
 
 | Stop bits | Value |
 |:----------|:-----:|
 | 1         | 1     |
 | 2         | 2     |
 
-##Flow control
+## Flow control
 
 | Parity   | Value |
 |:---------|:-----:|
@@ -42,7 +42,7 @@
 | RTS/CTS  | hard  |
 | XON/XOFF | soft  |
 
-##Constructor
+## Constructor
 
 ```javascript
 var uart = new serial(Number port, String name, Number baudrate, String parity, Number data_bits, Number stop_bits, String flow_control);
@@ -72,7 +72,7 @@ New instance.
 var uart = new serial(1, 'tty1', 115200, 'none', 8, 1, 'none');
 ```
 
-##request
+## request
 
 ```javascript
 Number request()
@@ -96,7 +96,7 @@ None.
 
 See [Full example](#full-example)
 
-##release
+## release
 
 ```javascript
 Number release()
@@ -119,7 +119,7 @@ None.
 
 See [Full example](#full-example)
 
-##write
+## write
 
 ```javascript
 Number write(Buffer data)
@@ -143,7 +143,7 @@ Write data over the serial port.
 uart.write(new Buffer([0xaa, 0xbb, 0xcc, 0xdd, 0xee, 0xff], 'hex'));
 ```
 
-##get_port_num
+## get_port_num
 
 ```javascript
 Number get_port_num()
@@ -167,7 +167,7 @@ None.
 console.log('Port number: ' + uart.get_port_num());
 ```
 
-##set_port_num
+## set_port_num
 
 ```javascript
 set_port_num(Number port)
@@ -191,7 +191,7 @@ None.
 uart.set_port_num(1);
 ```
 
-##get_name
+## get_name
 
 ```javascript
 String get_name()
@@ -215,7 +215,7 @@ None.
 console.log('Name: ' + uart.get_name());
 ```
 
-##set_name
+## set_name
 
 ```javascript
 set_name(String name)
@@ -239,7 +239,7 @@ None.
 uart.set_name('tty2');
 ```
 
-##get_baudrate
+## get_baudrate
 
 ```javascript
 Number get_baudrate()
@@ -263,7 +263,7 @@ None.
 console.log('Baudrate: ' + uart.get_baudrate());
 ```
 
-##set_baudrate
+## set_baudrate
 
 ```javascript
 set_baudrate(Number baudrate)
@@ -287,7 +287,7 @@ None.
 uart.set_baudrate(115200);
 ```
 
-##get_parity
+## get_parity
 
 ```javascript
 String get_parity()
@@ -311,7 +311,7 @@ None.
 console.log('Parity: ' + uart.get_parity());
 ```
 
-##set_parity
+## set_parity
 
 ```javascript
 set_parity(String parity)
@@ -335,7 +335,7 @@ None.
 uart.set_parity('none');
 ```
 
-##get_data_bits
+## get_data_bits
 
 ```javascript
 Number get_data_bits()
@@ -359,7 +359,7 @@ None.
 console.log('Data bits: ' + uart.get_data_bits());
 ```
 
-##set_data_bits
+## set_data_bits
 
 ```javascript
 set_data_bits(Number data_bits)
@@ -383,7 +383,7 @@ None.
 uart.set_data_bits(7);
 ```
 
-##get_stop_bits
+## get_stop_bits
 
 ```javascript
 Number get_stop_bits()
@@ -407,7 +407,7 @@ None.
 console.log('Stop bits: ' + uart.get_stop_bits());
 ```
 
-##set_stop_bits
+## set_stop_bits
 
 ```javascript
 set_stop_bits(Number stop_bits)
@@ -431,7 +431,7 @@ None.
 uart.set_stop_bits(1);
 ```
 
-##get_flowctrl
+## get_flowctrl
 
 ```javascript
 String get_flowctrl()
@@ -455,7 +455,7 @@ None.
 console.log('Flow control: ' + uart.get_flowctrl());
 ```
 
-##set_flowctrl
+## set_flowctrl
 
 ```javascript
 set_flowctrl(String flow_control)
@@ -479,9 +479,9 @@ None.
 uart.set_flowctrl('hard');
 ```
 
-#Events
+# Events
 
-##read
+## read
 
 ```javascript
 serial.on('read', function(Buffer))
@@ -499,6 +499,6 @@ Called every time data is received on the serial port.
 
 See [full example](#full-example)
 
-#Full example
+# Full example
 
    * See [serial-example.js](/examples/serial-example.js)

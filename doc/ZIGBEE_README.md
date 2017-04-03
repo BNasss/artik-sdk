@@ -1,6 +1,6 @@
-#ZigBee API
+# ZigBee API
 
-##Device types
+## Device types
 
 | Type                 | Value |
 |:---------------------|:-----:|
@@ -9,7 +9,7 @@
 | On-Off Light         | 2     |
 | Dimmable Light       | 3     |
 
-##initialize
+## initialize
 
 ```javascript
 initialize(Number[] devices)
@@ -32,7 +32,7 @@ None.
 
 See [full example](#full-example)
 
-##network_start
+## network_start
 
 ```javascript
 String network_start()
@@ -54,7 +54,7 @@ None.
 
 See [full example](#full-example)
 
-##network_form
+## network_form
 
 ```javascript
 network_form()
@@ -77,7 +77,7 @@ None.
 
 See [full example](#full-example)
 
-##network_form_manually
+## network_form_manually
 
 ```javascript
 network_form_manually(Number[] parameters)
@@ -110,7 +110,7 @@ var params = [ 14, 2, 1200 ];
 zigbee.network_form_manually(params);
 ```
 
-##network_permitjoin
+## network_permitjoin
 
 ```javascript
 String network_permitjoin(Number duration)
@@ -133,7 +133,7 @@ to join the network.
 
 See [full example](#full-example)
 
-##network_leave
+## network_leave
 
 ```javascript
 String network_leave()
@@ -155,7 +155,7 @@ None.
 
 See [full example](#full-example)
 
-##network_join
+## network_join
 
 ```javascript
 network_join()
@@ -177,7 +177,7 @@ None.
 
 See [full example](#full-example)
 
-##network_find
+## network_find
 
 ```javascript
 network_find()
@@ -199,7 +199,7 @@ None.
 
 See [full example](#full-example)
 
-##network_request_my_network_status
+## network_request_my_network_status
 
 ```javascript
 String network_request_my_network_status()
@@ -221,7 +221,7 @@ None.
 
 See [full example](#full-example)
 
-##device_request_my_node_type
+## device_request_my_node_type
 
 ```javascript
 String device_request_my_node_type()
@@ -243,7 +243,7 @@ None.
 
 See [full example](#full-example)
 
-##device_find_by_cluster
+## device_find_by_cluster
 
 ```javascript
 String device_find_by_cluster(Number cluster_id)
@@ -265,7 +265,7 @@ Returns the devices on the network that correspond to a cluster ID.
 
 See [full example](#full-example)
 
-##onoff_command
+## onoff_command
 
 ```javascript
 String onoff_command(Number[] endpoint, Number onoff)
@@ -313,7 +313,7 @@ following the order detailed below:
 
 See [full example](#full-example)
 
-##onoff_get_value
+## onoff_get_value
 
 ```javascript
 Number onoff_get_value(Number endpoint_id)
@@ -341,9 +341,9 @@ Get the current On/Off state of a remote endpoint.
 
 See [full example](#full-example)
 
-#Events
+# Events
 
-##started
+## started
 
 ```javascript
 zigbee.on('started', function())
@@ -362,7 +362,7 @@ None.
 
 See [full example](#full-example)
 
-##event
+## event
 
 ```javascript
 zigbee.on('event', function(String))
@@ -380,6 +380,6 @@ Called by the ZigBee module every time an event occurs. It passes a JSON formatt
 
 See [full example](#full-example)
 
-#Full example
+# Full example
 
    * See [zigbee-example.js](/examples/zigbee-example.js)

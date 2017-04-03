@@ -1,6 +1,6 @@
-#Wi-Fi API
+# Wi-Fi API
 
-##scan_request
+## scan_request
 
 ```javascript
 String scan_request()
@@ -23,7 +23,7 @@ None.
 
 See [full example](#full-example)
 
-##get_scan_result
+## get_scan_result
 
 ```javascript
 String get_scan_result()
@@ -46,7 +46,7 @@ None.
 
 See [full example](#full-example)
 
-##connect
+## connect
 
 ```javascript
 String connect(String ssid, String passphrase, Boolean persistent)
@@ -73,7 +73,7 @@ across reboot.
 
 See [full example](#full-example)
 
-##disconnect
+## disconnect
 
 ```javascript
 String disconnect()
@@ -95,9 +95,9 @@ None.
 
 See [full example](#full-example)
 
-#Events
+# Events
 
-##started
+## started
 
 ```javascript
 wifi.on('started', function())
@@ -114,7 +114,7 @@ None.
 
 See [full example](#full-example)
 
-##scan
+## scan
 
 ```javascript
 wifi.on('scan', function(String list))
@@ -131,7 +131,7 @@ Return the scan results in a JSON formatted string.
 
 See [full example](#full-example)
 
-##connected
+## connected
 
 ```javascript
 wifi.on('connected', function())
@@ -148,7 +148,7 @@ None.
 
 See [full example](#full-example)
 
-#Full example
+# Full example
 
 ```javascript
 var artik = require('artik-sdk');
