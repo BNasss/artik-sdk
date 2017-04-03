@@ -1,6 +1,6 @@
-#ADC API
+# ADC API
 
-##Constructor
+## Constructor
 
 ```javascript
 var analog = new adc(Number pin, String name);
@@ -27,7 +27,7 @@ New instance.
 var temperature = new adc(1, 'Temperature Sensor');
 ```
 
-##request
+## request
 
 ```javascript
 Number request()
@@ -52,7 +52,7 @@ None.
 
 See [full example](#full-example)
 
-##release
+## release
 
 ```javascript
 Number release()
@@ -75,7 +75,7 @@ None
 
 See [full example](#full-example)
 
-##get_value
+## get_value
 
 ```javascript
 Number get_value()
@@ -98,7 +98,7 @@ conversion process, **-1** is returned instead.
 
 See [full example](#full-example)
 
-##get_pin_num
+## get_pin_num
 
 ```javascript
 Number get_pin_num();
@@ -122,7 +122,7 @@ None
 console.log('Analog pin number: ' + temperature.get_pin_num());
 ```
 
-##get_name
+## get_name
 
 ```javascript
 String get_name()
@@ -146,7 +146,7 @@ None
 console.log('Analog pin name: ' + temperature.get_name());
 ```
 
-##set_pin_num
+## set_pin_num
 
 ```javascript
 set_pin_num(Number pin)
@@ -170,7 +170,7 @@ None
 temperature.set_pin_num(3);
 ```
 
-##set_name
+## set_name
 
 ```javascript
 set_name(String name)
@@ -194,7 +194,7 @@ None
 temperature.set_name('Humidity sensor');
 ```
 
-#Full Example
+# Full Example
 
 ```javascript
 var temperature = new adc(1, 'Temperature Sensor');

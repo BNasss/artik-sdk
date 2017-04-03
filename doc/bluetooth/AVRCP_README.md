@@ -1,7 +1,7 @@
-#Bluetooth AVRCP API
-##class AvrcpItem
-###Attributes
-####property
+# Bluetooth AVRCP API
+## class AvrcpItem
+### Attributes
+#### property
 ```javascript
 AvrcpProperty property;
 ```
@@ -10,7 +10,7 @@ AvrcpProperty property;
 
 The property of the item.
 
-####path
+#### path
 ```javascript
 String path;
 ```
@@ -19,9 +19,9 @@ String path;
 
 The path of the item
 
-##class AvrcpProperty
-###Attributes
-####name
+## class AvrcpProperty
+### Attributes
+#### name
 ```javascript
 String name;
 ```
@@ -29,7 +29,7 @@ String name;
 **Description**
 Displayable name
 
-####type
+#### type
 ```javascript
 String type;
 ```
@@ -39,7 +39,7 @@ Type of the item.
 
 Can take one of the following values "video", "audio" or "folder"
 
-####folder
+#### folder
 ```javascript
 String folder;
 ```
@@ -51,7 +51,7 @@ Can take one of the following values "mixed, "titles", "albums" or "artists"
 
 This field is available if the property *type* is "folder".
 
-####playable
+#### playable
 ```javascript
 Boolean playable;
 ```
@@ -61,7 +61,7 @@ Boolean playable;
 Indicate if the media can be played.
 
 **Description**
-####title
+#### title
 ```javascript
 String title;
 ```
@@ -71,7 +71,7 @@ Title of the media.
 
 This field is available if the property *type* is set to "audio" or "video".
 
-####artist
+#### artist
 ```javascript
 String artist;
 ```
@@ -81,7 +81,7 @@ Artist of the media.
 
 This field is available if the property *type* is set to "audio" or "video".
 
-####album
+#### album
 ```javascript
 String album;
 ```
@@ -91,7 +91,7 @@ The album of the media.
 
 This field is available if the property *type* is set to "audio" or "video".
 
-####genre
+#### genre
 ```javascript
 String genre;
 ```
@@ -101,7 +101,7 @@ The genre of the media.
 
 This field is available if the property *type* is set to "audio" or "video".
 
-####number_of_tracks
+#### number_of_tracks
 ```javascript
 Number number_of_tracks;
 ```
@@ -111,7 +111,7 @@ Number of the tracks in the album.
 
 This field is available if the property *type* is set to "audio" or "video".
 
-####number
+#### number
 ```javascript
 Number number;
 ```
@@ -121,7 +121,7 @@ Track number of the media.
 
 This field is available if the property *type* is set to "audio" or "video".
 
-####duration
+#### duration
 ```javascript
 Number duration;
 ```
@@ -131,7 +131,7 @@ Playing time in milliseconds
 
 This field is available if the property *type* is set to "audio" or "video".
 ## class Avrcp
-###Repeat modes
+### Repeat modes
 |        Repeat mode       |    value    |
 |:------------------------:|:-----------:|
 | Repeat a single track    | singletrack |
@@ -139,7 +139,7 @@ This field is available if the property *type* is set to "audio" or "video".
 | Repeat a group of tracks | group       |
 | Turn off repeat mode     | off         |
 
-###constructor
+### constructor
 ```javascript
 var avrcp = new bluetooth.Avrcp();
 ```
@@ -162,7 +162,7 @@ New Instance
 var avrcp = new Avrcp();
 ```
 
-###controller_change_folder
+### controller_change_folder
 ```javascript
 controller_change_folder(String folder)
 ```
@@ -184,7 +184,7 @@ None
 avrcp.controller_change_folder("/Filesystem/Album1");
 ```
 
-###controller_list_item
+### controller_list_item
 ```javascript
 AvrcpItem[] controller_list_item(Number start, Number end)
 ```
@@ -207,7 +207,7 @@ List the items of the current folder
 var items = avrcp.controller_list_item(-1, -1);
 ```
 
-###controller_get_repeat_mode
+### controller_get_repeat_mode
 ```javascript
 String controller_get_repeat_mode()
 ```
@@ -230,7 +230,7 @@ var repeat_mode = avrcp.controller_get_repeat_mode();
 console.log("Repeat mode is " + repeat_mode);
 ```
 
-###controller_set_repeat_mode
+### controller_set_repeat_mode
 ```javascript
 controller_set_repeat_mode(String repeat_mode)
 ```
@@ -252,7 +252,7 @@ None
 avrcp.repeat_mode("singletrack");
 ```
 
-###controller_is_connected
+### controller_is_connected
 ```javascript
 Boolean controller_is_connected();
 ```
@@ -275,7 +275,7 @@ var is_connected = avrcp.controller_is_connected();
 console.log("Is connected ? " + is_connected);
 ```
 
-###controller_resume_play
+### controller_resume_play
 ```javascript
 controller_resume_play();
 ```
@@ -297,7 +297,7 @@ None
 avrcp.controller_resume_play();
 ```
 
-###controller_pause
+### controller_pause
 ```javascript
 controller_pause();
 ```
@@ -320,7 +320,7 @@ avrcp.controller_pause();
 ```
 
 
-###controller_stop
+### controller_stop
 ```javascript
 controller_stop();
 ```
@@ -343,7 +343,7 @@ avrcp.controller_stop();
 ```
 
 
-###controller_next
+### controller_next
 ```javascript
 controller_next();
 ```
@@ -364,7 +364,7 @@ None
 avrcp.controller_next();
 ```
 
-###controller_previous
+### controller_previous
 ```javascript
 controller_previous();
 ```
@@ -386,8 +386,7 @@ None
 avrcp.controller_previous();
 ```
 
-
-###controller_fast_forward
+### controller_fast_forward
 ```javascript
 controller_fast_forward();
 ```
@@ -409,7 +408,7 @@ None
 avrcp.controller_fast_forward();
 ```
 
-###controller_rewind
+### controller_rewind
 ```javascript
 controller_rewind();
 ```
@@ -431,7 +430,7 @@ None
 avrcp.controller_rewind();
 ```
 
-###controller_get_property
+### controller_get_property
 ```javascript
 AvrcpProperty controller_get_property(String item);
 ```
@@ -453,7 +452,7 @@ Get property of the item.
 var item = avrcp.controller_get_property("/Filesystem/song1");
 ```
 
-###controller_play_item
+### controller_play_item
 ```javascript
 controller_play_item(String item);
 ```
@@ -475,7 +474,7 @@ None
 avrcp.controller_play_item("/Filesystem/song1");
 ```
 
-###controller_add_to_playing
+### controller_add_to_playing
 ```javascript
 controller_add_to_playing(String item);
 ```
@@ -497,7 +496,7 @@ None
 avrcp.controller_add_to_playing("/Filesystem/song1");
 ```
 
-###controller_get_name
+### controller_get_name
 ```javascript
 String controller_get_name();
 ```
@@ -520,7 +519,7 @@ var name = avrcp.controller_get_name();
 console.log("Player name is " + name);
 ```
 
-###controller_get_status
+### controller_get_status
 ```javascript
 String controller_get_status();
 ```
@@ -543,7 +542,7 @@ var status = avrcp.controller_get_status();
 console.log("Player status is " + status);
 ```
 
-###controller_get_subtype
+### controller_get_subtype
 ```javascript
 String controller_get_subtype()
 ```
@@ -566,7 +565,7 @@ var subtype = avrcp.controller_get_subtype();
 console.log("Player subtype is " + subtype);
 ```
 
-###controller_get_type
+### controller_get_type
 ```javascript
 String controller_get_type()
 ```
@@ -589,7 +588,7 @@ var type = avrcp.controller_get_type();
 console.log("Player type is " + type);
 ```
 
-###controller_get_browsable
+### controller_get_browsable
 ```javascript
 Boolean controller_get_browsable()
 ```
@@ -612,7 +611,7 @@ var browsable = avrcp.controller_get_browsable();
 console.log("Browsable: " + browsable);
 ```
 
-###controller_get_position
+### controller_get_position
 ```javascript
 Number controller_get_position()
 ```
@@ -634,6 +633,6 @@ var position = avrcp.controller_get_position();
 console.log("Position: " + position + " ms");
 ```
 
-##Full example
+## Full example
 
   * See [bluetooth-avrcp-example.js](/examples/bluetooth-avrcp-example.js)

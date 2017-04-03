@@ -1,7 +1,7 @@
-#Bluetooth PAN API
+# Bluetooth PAN API
 
 ## class Pan
-###Constructor
+### Constructor
 ```javascript
 var pan = new bluetooth.Pan();
 ```
@@ -24,7 +24,7 @@ None
 var pan = new bluetooth.pan();
 ```
 
-###register
+### register
 ```javascript
 register(String uuid, String bridge)
 ```
@@ -47,7 +47,7 @@ None
 pan.register("nap", "bnep0");
 ```
 
-###unregister
+### unregister
 ```javascript
 unregister(String uuid)
 ```
@@ -69,7 +69,7 @@ None
 pan.unregister("nap");
 ```
 
-###connect
+### connect
 ```javascript
 String connect(String addr, String uuid);
 ```
@@ -92,7 +92,7 @@ Connect the PAN service to another.
 pan.connect("01:02:03:04:05:06", "nap");
 ```
 
-###disconnect
+### disconnect
 ```javascript
 disconnect();
 ```
@@ -114,7 +114,7 @@ None
 pan.disconnect();
 ```
 
-###get_connected
+### get_connected
 ```javascript
 Boolean get_connected()
 ```
@@ -137,7 +137,7 @@ var connected = pan.get_connected();
 console.log("Connected: " + connected);
 ```
 
-###get_interface
+### get_interface
 ```javascript
 String get_interface();
 ```
@@ -160,7 +160,7 @@ var if = pan.get_interface();
 console.log("Network interface: " + if);
 ```
 
-###get_UUID
+### get_UUID
 ```javascript
 String get_UUID();
 ```
@@ -183,7 +183,7 @@ var uuid = pan.get_UUID();
 console.log("UUID: " + uuid);
 ```
 
-##Full example
+## Full example
 
   * See [bluetooth-panu-example.js](/examples/bluetooth-panu-example.js)
   * See [bluetooth-nap-example.js](/examples/bluetooth-nap-example.js)

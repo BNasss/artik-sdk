@@ -1,6 +1,6 @@
-#MQTT API
+# MQTT API
 
-##Constructor
+## Constructor
 
 ```javascript
 var mqtt_client = new mqtt(String client_id, String user_name, String user_pass,
@@ -47,7 +47,7 @@ New instance.
 
 See [full example](#full-example)
 
-##set_willmsg
+## set_willmsg
 
 ```javascript
 Number set_willmsg(String willtopic, Buffer willmessage, Number qos, Boolean retain)
@@ -72,7 +72,7 @@ Set the WILLTOPIC and WILLMSG for connection.
 
 See [full example](#full-example)
 
-##free_willmsg
+## free_willmsg
 
 ```javascript
 Number free_willmsg()
@@ -94,7 +94,7 @@ None
 
 See [full example](#full-example)
 
-##clear_willmsg
+## clear_willmsg
 
 ```javascript
 Number clear_willmsg()
@@ -117,7 +117,7 @@ None
 
 See [full example](#full-example)
 
-##tls_set
+## tls_set
 
 ```javascript
 Number tls_set(String ca_file, String ca_path, String cert_file, String key_file)
@@ -146,7 +146,7 @@ Must be called before [connect](#connect).
 
 See [full example](#full-example)
 
-##tls_insecure_set
+## tls_insecure_set
 
 ```javascript
 Number tls_insecure_set(Boolean insecure)
@@ -175,7 +175,7 @@ the connection encryption pointless. Must be called before [connect](#connect).
 
 See [full example](#full-example)
 
-##tls_opts_set
+## tls_opts_set
 
 ```javascript
 Number tls_opts_set(String cert_reqs, String version, String ciphers)
@@ -214,7 +214,7 @@ Must be called before [connect](#connect).
 
 See [full example](#full-example)
 
-##tls_psk_set
+## tls_psk_set
 
 ```javascript
 Number tls_psk_set(String key, String identity, String ciphers)
@@ -243,7 +243,7 @@ with [tls_set](#tls_set).
 
 See [full example](#full-example)
 
-##connect
+## connect
 
 ```javascript
 Number connect(String host, String port, function callback(String result))
@@ -268,7 +268,7 @@ Connect to an MQTT broker. This is a non-blocking call.
 
 See [full example](#full-example)
 
-##disconnect
+## disconnect
 
 ```javascript
 Number disconnect(function callback(String result))
@@ -291,7 +291,7 @@ Disconnect from the broker.
 
 See [full example](#full-example)
 
-##subscribe
+## subscribe
 
 ```javascript
 Number subscribe(Integer qos, String topic,
@@ -321,7 +321,7 @@ Subscribe to a topic.
 
 See [full example](#full-example)
 
-##unsubscribe
+## unsubscribe
 
 ```javascript
 Number unsubscribe(String topic, function callback(Integer mid))
@@ -345,7 +345,7 @@ Unsubscribe from a topic.
 
 See [full example](#full-example)
 
-##publish
+## publish
 
 ```javascript
 Number publish(Integer qos, Boolean retain, String topic, Buffer message,
@@ -373,9 +373,9 @@ Publish a message on a given topic.
 
 See [full example](#full-example)
 
-#Events
+# Events
 
-##on_connect
+## connected
 
 ```javascript
 mqtt_client.on('connected', function (String result))
@@ -393,7 +393,7 @@ Called every time when the mqtt client succeed to connect.
 
 See [full example](#full-example)
 
-##on_disconnect
+## disconnected
 
 ```javascript
 mqtt_client.on('disconnected', function (String result))
@@ -411,7 +411,7 @@ Called every time when the mqtt client is disconnected.
 
 See [full example](#full-example)
 
-##on_subscribe
+## subscribed
 
 ```javascript
 mqtt_client.on('subscribed', function (Integer message_id))
@@ -429,7 +429,7 @@ Called every time when the mqtt client succeed to subscribe to a topic.
 
 See [full example](#full-example)
 
-##on_unsubscribe
+## unsubscribed
 
 ```javascript
 mqtt_client.on('unsubscribed', function (Integer message_id))
@@ -447,7 +447,7 @@ Called every time when the mqtt client is unsubscribed from a topic.
 
 See [full example](#full-example)
 
-##on_publish
+## published
 
 ```javascript
 mqtt_client.on('published', function (Integer message_id))
@@ -465,7 +465,7 @@ Called every time when the mqtt client succeed to publish a message on a topic.
 
 See [full example](#full-example)
 
-##on_receive
+## received
 
 ```javascript
 mqtt_client.on('received', function (Integer message_id, String topic, Buffer buffer,
@@ -488,6 +488,6 @@ Called every time when the mqtt client receives a message.
 
 See [full example](#full-example)
 
-#Full example
+# Full example
 
    * See [mqtt-example.js](/examples/mqtt-example.js)

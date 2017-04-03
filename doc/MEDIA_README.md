@@ -1,6 +1,6 @@
-#Media API
+# Media API
 
-##play_sound_file
+## play_sound_file
 
 ```javascript
 play_sound_file(String file, function())
@@ -30,6 +30,6 @@ media.play_sound_file('/opt/music.mp3', function() {
 });
 ```
 
-#Full example
+# Full example
 
    * See [media-example.js](/examples/media-example.js)

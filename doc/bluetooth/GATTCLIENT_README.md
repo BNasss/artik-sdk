@@ -1,6 +1,6 @@
 # Bluetooth GATT Client API
-##class RemoteService
-###discover_characteristics
+## class RemoteService
+### discover_characteristics
 ```javascript
 RemoteCharacteristic[] discover_characteristics();
 ```
@@ -22,8 +22,8 @@ None
 var characteristics = service.discover_characteristics();
 ```
 
-###Attributes
-####uuid
+### Attributes
+#### uuid
 ```javascript
 String uuid;
 ```
@@ -37,8 +37,8 @@ The UUID of the service.
 console.log("Service uuid is " + service.uuid);
 ```
 
-##class RemoteCharacteristic
-###Characteristic properties
+## class RemoteCharacteristic
+### Characteristic properties
 |                     Property                        |           Value        |
 |:---------------------------------------------------:|:----------------------:|
 | The characteristic is broadcastable                 | broadcast              |
@@ -48,7 +48,7 @@ console.log("Service uuid is " + service.uuid);
 | The characteristic supports notification            | notify                 |
 | The characteristic supports indication              | indicate               |
 | The characteristic supports write with signature    | signed-write           |
-###write
+### write
 ```javascript
 write(Buffer data);
 ```
@@ -70,7 +70,7 @@ None
 chr.write(new node.Buffer([0x12]));
 ```
 
-###read
+### read
 ```javascript
 Buffer read();
 ```
@@ -93,7 +93,7 @@ var data = chr.read();
 console.log("  - data " + data.toString("hex"));
 ```
 
-###subscribe
+### subscribe
 ```javascript
 subscribe();
 ```
@@ -117,7 +117,7 @@ None
 chr.subscribe();
 ```
 
-###unsubscribe
+### unsubscribe
 ```javascript
 unsubscribe();
 ```
@@ -139,7 +139,7 @@ None
 chr.unsubscribe();
 ```
 
-###discover_descriptors
+### discover_descriptors
 ```javascript
 RemoteDescriptor[] discover_descriptors();
 ```
@@ -161,8 +161,8 @@ None
 var descriptors = chr.discover_descriptors();
 ```
 
-###Attributes
-####properties
+### Attributes
+#### properties
 ```javascript
 String[] properties;
 ```
@@ -177,7 +177,7 @@ console.log("properties: " + chr.properties);
 ```
 
 
-####uuid
+#### uuid
 ```javascript
 String uuid;
 ```
@@ -192,7 +192,7 @@ console.log("uuid: " + chr.uuid);
 ```
 
 
-###Events
+### Events
 #### data
 ```javascript
 chr.on('data', function(Buffer data));
@@ -213,8 +213,8 @@ chr.on('data), function(data) {
 });
 ```
 
-##class RemoteDescriptor
-###write
+## class RemoteDescriptor
+### write
 ```javascript
 write(Buffer data);
 ```
@@ -236,7 +236,7 @@ None
 desc.write(new node.Buffer([0x12]));
 ```
 
-###read
+### read
 ```javascript
 Buffer read();
 ```
@@ -259,8 +259,8 @@ var data = desc.read();
 console.log("  - data " + data.toString("hex"));
 ```
 
-###Attributes
-####uuid
+### Attributes
+#### uuid
 ```javascript
 String uuid;
 ```
@@ -274,8 +274,8 @@ The UUID of the descriptor.
 console.log("Descriptor uuid is " + desc.uuid);
 ```
 
-##class GattClient
-###Constructor
+## class GattClient
+### Constructor
 ```javascript
 var gatt_client = new bluetooth.GattClient();
 ```
@@ -298,7 +298,7 @@ None
 var gatt_client = new bluetooth.GattClient();
 ```
 
-###discover_services
+### discover_services
 ```javascript
 RemoteService[] discover_services(String addr);
 ```
@@ -322,8 +322,8 @@ Note: Wait for the event 'servicesDiscover' before calling this method.
 var services = gatt_client.discover_services("01:02:03:04:05:06");
 ```
 
-###Events
-####servicesDiscover
+### Events
+#### servicesDiscover
 ```javascript
 gatt_client.on("servicesDiscover", function());
 ```
@@ -341,6 +341,6 @@ None
 gatt_client.on('servicesDiscover', function() { console.log('New services available); });
 ```
 
-##Full example
+## Full example
 
   * See [bluetooth-gattclient-example.js](/examples/bluetooth-gattclient-example.js)

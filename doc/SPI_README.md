@@ -1,6 +1,6 @@
-#SPI API
+# SPI API
 
-##Constructor
+## Constructor
 
 ```javascript
 var chip = new spi(Number bus, Number chipselect, Number mode, Number bpw, Number speed);
@@ -26,7 +26,7 @@ New instance.
 
 See [Full example](#full-example)
 
-##request
+## request
 
 ```javascript
 Number request()
@@ -51,7 +51,7 @@ None.
 
 See [Full example](#full-example)
 
-##release
+## release
 
 ```javascript
 Number release()
@@ -73,7 +73,7 @@ None.
 
 See [Full example](#full-example)
 
-##read
+## read
 
 ```javascript
 Buffer read(Number length)
@@ -95,7 +95,7 @@ Read data from the SPI bus.
 
 See [Full example](#full-example)
 
-##write
+## write
 
 ```javascript
 Number write(Buffer data)
@@ -117,7 +117,7 @@ Write data to the SPI bus.
 
 See [Full example](#full-example)
 
-##read_write
+## read_write
 
 ```javascript
 Buffer read_write(Buffer data)
@@ -139,6 +139,6 @@ Read and write data simultaneously on the SPI bus.
 
 See [Full example](#full-example)
 
-#Full example
+# Full example
 
    * See [spi-example.js](/examples/spi-example.js)

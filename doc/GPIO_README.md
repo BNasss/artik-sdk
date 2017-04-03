@@ -1,6 +1,6 @@
-#GPIO API 
+# GPIO API 
 
-##Constructor
+## Constructor
 
 ```javascript
 var io = new gpio(Number gpio_id, String name, String direction, String edge, Number init_value);
@@ -31,7 +31,7 @@ var led = new gpio(1, 'Green LED', 'out', 'none', 0);
 var button = new gpio(2, 'User Button', 'in', 'rising', 0);
 ```
 
-##request
+## request
 
 ```javascript
 Number request()
@@ -56,7 +56,7 @@ None.
 
 See [full example](#full-example)
 
-##release
+## release
 
 ```javascript
 Number release()
@@ -79,7 +79,7 @@ None.
 
 See [full example](#full-example)
 
-##read
+## read
 
 ```javascript
 Number read()
@@ -101,7 +101,7 @@ None.
 
 See [full example](#full-example)
 
-##write
+## write
 
 ```javascript
 Number write(Number state)
@@ -123,7 +123,7 @@ Set the state of the GPIO when this one is configured as an output.
 
 See [full example](#full-example)
 
-##get_name
+## get_name
 
 ```javascript
 String get_name()
@@ -147,7 +147,7 @@ None.
 console.log('Name: ' + led.get_name());
 ```
 
-##get_direction
+## get_direction
 
 ```javascript
 String get_direction()
@@ -171,7 +171,7 @@ None.
 console.log('Direction: ' + led.get_direction());
 ```
 
-##get_id
+## get_id
 
 ```javascript
 String get_id()
@@ -195,6 +195,6 @@ None.
 console.log('ID: ' + led.get_id());
 ```
 
-#Full example
+# Full example
 
    * See [gpio-example.js](/examples/gpio-example.js)

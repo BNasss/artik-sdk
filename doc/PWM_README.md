@@ -1,6 +1,6 @@
-#PWM API
+# PWM API
 
-##Constructor
+## Constructor
 
 ```javascript
 var signal = new pwm(Number pin, String name, Number period, Number polarity, Number duty_cycle);
@@ -28,7 +28,7 @@ New instance.
 var signal = new pwm(1, "square", 10000, 0, 5000);
 ```
 
-##request
+## request
 
 ```javascript
 Number request()
@@ -53,7 +53,7 @@ None.
 
 See [full example](#full-example)
 
-##release
+## release
 
 ```javascript
 Number release()
@@ -76,7 +76,7 @@ None
 
 See [full example](#full-example)
 
-##enable
+## enable
 
 ```javascript
 Number enable()
@@ -98,7 +98,7 @@ None
 
 See [full example](#full-example)
 
-##disable
+## disable
 
 ```javascript
 Number disable()
@@ -120,7 +120,7 @@ None
 
 See [full example](#full-example)
 
-##set_pin_num
+## set_pin_num
 
 ```javascript
 Number set_pin_num(Number pin)
@@ -142,7 +142,7 @@ Change the pin number of the PWM signal
 
 See [full example](#full-example)
 
-##set_name
+## set_name
 
 ```javascript
 Number set_name(String name)
@@ -164,7 +164,7 @@ Change the friendly name of the PWM signal.
 
 See [full example](#full-example)
 
-##set_period
+## set_period
 
 ```javascript
 Number set_period(Number period)
@@ -186,7 +186,7 @@ Change the period of the PWM signal
 
 See [full example](#full-example)
 
-##set_duty_cycle
+## set_duty_cycle
 
 ```javascript
 Number set_duty_cycle(Number duty_cycle)
@@ -208,7 +208,7 @@ Change the duty cycle of the PWM signal
 
 See [full example](#full-example)
 
-##set_polarity
+## set_polarity
 
 ```javascript
 Number set_polarity(Number polarity)
@@ -230,7 +230,7 @@ Change the polarity of the PWM signal
 
 See [full example](#full-example)
 
-##get_pin_num
+## get_pin_num
 
 ```javascript
 Number get_pin_num()
@@ -252,7 +252,7 @@ None.
 
 See [full example](#full-example)
 
-##get_name
+## get_name
 
 ```javascript
 String get_name()
@@ -274,7 +274,7 @@ None.
 
 See [full example](#full-example)
 
-##get_period
+## get_period
 
 ```javascript
 Number get_period()
@@ -296,7 +296,7 @@ None.
 
 See [full example](#full-example)
 
-##get_duty_cycle
+## get_duty_cycle
 
 ```javascript
 Number get_duty_cycle()
@@ -318,7 +318,7 @@ None.
 
 See [full example](#full-example)
 
-##get_polarity
+## get_polarity
 
 ```javascript
 Number get_polarity()
@@ -340,6 +340,6 @@ None.
 
 See [full example](#full-example)
 
-#Full example
+# Full example
 
    * See [pwm-example.js](/examples/pwm-example.js)

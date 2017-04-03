@@ -1,6 +1,6 @@
-#LWM2M API
+# LWM2M API
 
-##Constructor
+## Constructor
 
 ```javascript
 var lwm2m_client = new lwm2m();
@@ -22,7 +22,7 @@ New instance.
 
 See [full example](#full-example)
 
-##client_connect
+## client_connect
 
 ```javascript
 String client_connect(Integer id, String uri, String name,
@@ -52,7 +52,7 @@ Create an LWM2M client and connect it to the server.
 
 See [full example](#full-example)
 
-##client_disconnect
+## client_disconnect
 
 ```javascript
 String client_disconnect()
@@ -74,7 +74,7 @@ None
 
 See [full example](#full-example)
 
-##client_disconnect
+## client_disconnect
 
 ```javascript
 String client_write_resource(String uri, Buffer message)
@@ -97,7 +97,7 @@ Write LWM2M resource value
 
 See [full example](#full-example)
 
-##client_read_resource
+## client_read_resource
 
 ```javascript
 String client_read_resource(String uri)
@@ -115,7 +115,7 @@ Read LWM2M resource value.
 
 *String*: Error message
 
-##serialize_tlv_int
+## serialize_tlv_int
 
 ```javascript
 Buffer serialize_tlv_int(Array array_of_int)
@@ -133,7 +133,7 @@ Serialize an array of integer under the TLV format.
 
 *String*: Error message or the buffer filled
 
-##serialize_tlv_string
+## serialize_tlv_string
 
 ```javascript
 Buffer serialize_tlv_string(Array array_of_str)
@@ -155,9 +155,9 @@ Serialize an array of string under the TLV format.
 
 See [full example](#full-example)
 
-#Events
+# Events
 
-##on_execute
+## execute
 
 ```javascript
 lwm2m_client.on('execute', function (String uri))
@@ -165,7 +165,7 @@ lwm2m_client.on('execute', function (String uri))
 
 **Description**
 
-Called every time when the lwm2m client resource has been executed .
+Called every time when the lwm2m client resource has been executed.
 
 **Parameters**
 
@@ -175,7 +175,7 @@ Called every time when the lwm2m client resource has been executed .
 
 See [full example](#full-example)
 
-##on_changed
+## changed
 
 ```javascript
 lwm2m_client.on('changed', function (String uri))
@@ -193,7 +193,7 @@ Called every time when the lwm2m client resource has been changed.
 
 See [full example](#full-example)
 
-##on_error
+## error
 
 ```javascript
 lwm2m_client.on('error', function (String err))
@@ -211,6 +211,6 @@ Called every time when the lwm2m client received an error.
 
 See [full example](#full-example)
 
-#Full example
+# Full example
 
    * See [lwm2m-example.js](/examples/lwm2m-example.js)
