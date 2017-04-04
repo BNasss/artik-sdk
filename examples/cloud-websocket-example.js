@@ -45,8 +45,15 @@ opt.getopt(function (o, p){
     }
 });
 
+conn.on('connected', function(result) {
+    console.log("Connect result: " + result);
+
+    if (result != "CONNECTED")
+        process.exit(0);
+});
+
 conn.on('receive', function(message) {
-	console.log("received: " + message);
+	console.log("Received: " + message);
 });
 
 conn.websocket_open_stream(access_token, device_id, use_se);
@@ -58,6 +65,7 @@ process.on('SIGINT', function () {
 });
 
 setInterval(function () {
+    console.log("Writing: " + test_message);
 	conn.websocket_send_message(test_message);
 }, 1000);
 

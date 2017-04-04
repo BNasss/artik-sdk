@@ -60,10 +60,14 @@ Cloud.prototype.delete_device = function delete_device(user_id, device_type_id, 
 };
 
 Cloud.prototype.websocket_open_stream = function websocket_open_stream(access_token, device_id, use_se) {
-	var _ = this;
-	return this.cloud.websocket_open_stream(access_token, device_id, use_se, function(message) {
-		_.emit('receive', message);
-	});
+        var _ = this;
+	return this.cloud.websocket_open_stream(access_token, device_id, use_se, 
+                function(message) {
+	               _.emit('receive', message);
+	        },
+                function(status) {
+                        _.emit('connected', status);
+                });
 };
 
 Cloud.prototype.websocket_send_message = function websocket_send_message(message) {

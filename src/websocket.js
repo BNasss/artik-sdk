@@ -2,9 +2,9 @@ var events = require('events');
 var util = require('util');
 var websocket = require('../lib/artik-sdk').websocket;
 
-var Websocket = function(host, uri, port, ssl_connection, use_se) {
+var Websocket = function(uri, ssl_config) {
 	events.EventEmitter.call(this);
-	this.websocket = websocket(host, uri, port, ssl_connection, use_se);
+	this.websocket = websocket(uri, ssl_config);
 }
 
 util.inherits(Websocket, events.EventEmitter);

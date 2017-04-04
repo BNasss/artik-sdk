@@ -3,7 +3,7 @@
 ## Constructor
 
 ```javascript
-var ws = new websocket(String host, String uri, Number port, Number ssl, Boolean use_se);
+var ws = new websocket(String uri, Object ssl_config = null);
 ```
 
 **Description**
@@ -12,21 +12,73 @@ Create and configure a new websocket object.
 
 **Parameters**
 
- - *String*: address of the websocket host to connect to.
- - *String*: URI to target on the websocket host.
- - *Number*: port of the websocket.
- - *Number*: **1** to use SSL for connection to the websocket, **0** otherwise.
- - *Boolean*: **1** to use the onboard Secure Element for SSL handshake, **0**
-otherwise.
+ - *String*: URI of the websocket server to connect to.
+ - *Object*: object containing the different parameters as CA certificate, client certificate,
+client key, enabling Secure Element and defining the level of verification of the server
+certificate. The object must be structured as the following example :
+
+```javascript
+var ssl_config = {
+
+	/*
+	optional
+	Enabling Secure Element
+	*/
+	use_se: false,
+
+	/*
+	optional but could be required for verification
+	CA root certificate of the server
+	*/
+	ca_cert: Buffer.from(""),
+
+	/*
+	optional but could be required for verification
+	Client certificate
+	*/
+	client_cert: Buffer.from(""),
+
+	/*
+	optional but could be required for verification
+	Client private key
+	*/
+	client_key: Buffer.from(""),
+
+	/*
+	optional
+	Verification of server certificate
+
+	"none" for no verification,
+	"optional" for optional verification,
+	"required" for required verification
+	*/
+	verify_cert: "none"
+};
+
+```
 
 **Return value**
 
 New instance.
 
-**Example**
+**Examples**
 
 ```javascript
-var cloud = new websocket('api.artik.cloud', '/v1.1/websocket', 443, 1, 0);
+var websocket = new websocket('ws://echo.websocket.org/');
+```
+
+```javascript
+var fs = require('fs');
+
+var data = fs.readFileSync('artik_cloud_ca.pem');
+
+ssl_config = {
+	use_se: true,
+	ca_cert = Buffer.from(data),
+	verify_cert: "required"
+}
+
+var cloud = new websocket('wss://api.artik.cloud/v1.1', ssl_config);
 ```
 
 ## open_stream
@@ -113,9 +165,10 @@ Called after a status change of the websocket connection.
 
 **Parameters**
 
- - *String*: string containing the current state of the connection. 
+ - *String*: string containing the current state of the connection.
 **CONNECTED** if the connection was successful, **CLOSED** if it was closed
-manually or by the remote host.
+manually or by the remote host or **HANDSHAKE ERROR** if the handshake has failed
+when SSL/TLS is enabled.
 
 **Example**
 
