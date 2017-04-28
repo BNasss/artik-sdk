@@ -78,7 +78,7 @@ bt.on('bond', function(err, paired) {
 				process.exit(1);
 			}
 			console.log("ping " + line + "... succeeded");
-		}):
+		});
 	}
 });
 
