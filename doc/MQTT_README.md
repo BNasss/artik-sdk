@@ -3,15 +3,23 @@
 ## Constructor
 
 ```javascript
-var mqtt_client = new mqtt(String client_id, String user_name, String user_pass,
-    		      		   Boolean clean_session, Number keep_alive_time, Boolean asynchronous,
-				   	       function callbackConnect(String result),
-				   	       function callbackDisconnect(String result),
-				   	       function callbackSubscribe(Integer message_id),
-				   	       function callbackUnsubscribe(Integer message_id),
-				   	       function callbackPublish(Integer message_id),
-				   	       function callbackReceive(Integer message_id, String topic, Buffer buffer,
-					       						    Integer qos, Boolean retain));
+var mqtt_client = new mqtt(String client_id,
+                           String user_name,
+                           String user_pass,
+                           Boolean clean_session,
+                           Number keep_alive_time,
+                           Boolean asynchronous,
+                           Object ssl_config,
+                           function callbackConnect(String result),
+                           function callbackDisconnect(String result),
+                           function callbackSubscribe(Integer message_id),
+                           function callbackUnsubscribe(Integer message_id),
+                           function callbackPublish(Integer message_id),
+                           function callbackReceive(Integer message_id,
+                                                    String topic,
+                                                    Buffer buffer,
+                                                    Integer qos,
+                                                    Boolean retain));
 ```
 
 **Description**
@@ -26,6 +34,48 @@ Create and configure a new mqtt client object.
  - *Boolean*: clean_session permits to delete all the message when the client is disconnected.
  - *Number*: keep_alive_time in milliseconds.
  - *Boolean*: asynchronous let the mqtt client to be non-blocking.
+ - *Object*: object containing the different parameters as CA certificate, client certificate,
+client key, enabling Secure Element and defining the level of verification of the server
+certificate. The object must be structured as the following example :
+
+```javascript
+var ssl_config = {
+
+	/*
+	optional
+	Enabling Secure Element
+	*/
+	use_se: false,
+
+	/*
+	optional but could be required for verification
+	CA root certificate of the server
+	*/
+	ca_cert: Buffer.from(""),
+
+	/*
+	optional but could be required for verification
+	Client certificate
+	*/
+	client_cert: Buffer.from(""),
+
+	/*
+	optional but could be required for verification
+	Client private key
+	*/
+	client_key: Buffer.from(""),
+
+	/*
+	optional
+	Verification of server certificate
+
+	"none" for no verification,
+	"optional" for optional verification,
+	"required" for required verification
+	*/
+	verify_cert: "none"
+};
+```
  - *function*: callbackConnect call every time the client succeed to connect to the broker.
    For more details see [on_connect](#on_connect).
  - *function*: callbackDisconnect call every time the client succeed to disconnect from the broker.
@@ -108,132 +158,6 @@ This must be called before calling [connect](#connect).
 **Parameters**
 
 None
-
-**Return value**
-
-*Number*: Error code
-
-**Example**
-
-See [full example](#full-example)
-
-## tls_set
-
-```javascript
-Number tls_set(String ca_file, String ca_path, String cert_file, String key_file)
-```
-
-**Description**
-
-Configure the client for certificate based SSL/TLS support.
-Must be called before [connect](#connect).
-
-**Parameters**
-
- - *String*: ca_file path to a file containing the PEM encoded trusted CA certificate files.
-   	     Either cafile or capath must not be NULL.
- - *String*: ca_path path to a directory containing the PEM encoded trusted CA certificate files.
- - *String*: cert_file path to a file containing the PEM encoded certificate file for this client.
-   	     If NULL, keyfile must also be NULL and no client certificate will be used.
- - *String*: key_file path to a file containing the PEM encoded private key for this client.
-   	     If NULL, certfile must also be NULL and no client certificate will be used.
-
-**Return value**
-
-*Number*: Error code
-
-**Example**
-
-See [full example](#full-example)
-
-## tls_insecure_set
-
-```javascript
-Number tls_insecure_set(Boolean insecure)
-```
-
-**Description**
-
-Configure verification of the server host name in the server certificate.
-If value is set to true, it is impossible to guarantee that the host
-you are connecting to is not impersonating your server.
-This can be useful in initial server testing, but makes it possible
-for a malicious third party to impersonate your server through DNS spoofing, for example.
-Do not use this function in a real system. Setting value to true makes
-the connection encryption pointless. Must be called before [connect](#connect).
-
-**Parameters**
-
- - *Boolean*: insecure if set to false, the default, certificate host name		checking is performed. If set to true, no host name checking
-   	      is performed and the connection is insecure.
-
-**Return value**
-
-*Number*: Error code
-
-**Example**
-
-See [full example](#full-example)
-
-## tls_opts_set
-
-```javascript
-Number tls_opts_set(String cert_reqs, String version, String ciphers)
-```
-
-**Description**
-
-Configure the client for certificate based SSL/TLS support.
-Must be called before [connect](#connect).
-
-**Parameters**
-
- - *String*: cert_reqs an integer defining the verification requirements
-   	     the client will impose on the server. This can be one of:
-	     	 	SSL_VERIFY_NONE (0): the server will not be verified in any way.
-			SSL_VERIFY_PEER (1): the server certificate will be verified
-					     and the connection aborted if the verification fails.
-	     The default and recommended value is SSL_VERIFY_PEER.
-	     Using SSL_VERIFY_NONE provides no security.
- - *String*: version the version of the SSL/TLS protocol to use as a string.
-   	     If NULL, the default value is used.
-	     The default value and the available values depend on the
-	     version of openssl that the library was compiled against.
-	     For openssl >= 1.0.1, the available options are tlsv1.2,
-	     tlsv1.1 and tlsv1, with tlv1.2 as the default.
-	     For openssl < 1.0.1, only tlsv1 is available.
- - *String*: ciphers a string describing the ciphers available for use.
-   	     See the "openssl ciphers" tool for more information.
-	     If NULL, the default ciphers will be used.
-
-**Return value**
-
-*Number*: Error code
-
-**Example**
-
-See [full example](#full-example)
-
-## tls_psk_set
-
-```javascript
-Number tls_psk_set(String key, String identity, String ciphers)
-```
-
-**Description**
-
-Configure the client for pre-shared-key based TLS support.
-Must be called before [connect](#connect). Cannot be used in conjunction
-with [tls_set](#tls_set).
-
-**Parameters**
-
- - *String*: key the pre-shared-key in hex format with no leading "0x".
- - *String*: identity the identity of this client. May be used as the
-   	     username depending on the server settings.
- - *String*: ciphers a string describing the ciphers available for use.
-   	     See the "openssl ciphers" tool for more information.
-	     If NULL, the default ciphers will be used.
 
 **Return value**
 

@@ -2,10 +2,10 @@ var events = require('events');
 var util = require('util');
 var mqtt = require('../lib/artik-sdk').mqtt;
 
-var Mqtt = function(device_name, device_id, device_token, clean, keep_aliven, block) {
+var Mqtt = function(client_id, user_name, user_password, clean, keep_alive, block, ssl_config) {
     events.EventEmitter.call(this);
     _ = this;
-    this.mqtt = new mqtt(device_name, device_id, device_token, clean, keep_aliven, block,
+    this.mqtt = new mqtt(client_id, user_name, user_password, clean, keep_alive, block, ssl_config,
 			 function(result) {
     			     _.emit('connected', result);
 			 },
@@ -43,22 +43,6 @@ Mqtt.prototype.free_willmsg = function() {
 
 Mqtt.prototype.clear_willmsg = function() {
     return this.mqtt.clear_willmsg();
-}
-
-Mqtt.prototype.tls_set = function(ca_file, ca_path, cert_file, key_file) {
-    return this.mqtt.tls_set(ca_file, ca_path, cert_file, key_file);
-}
-
-Mqtt.prototype.tls_insecure_set = function(insecure) {
-    return this.mqtt.tls_insecure_set(insecure);
-}
-
-Mqtt.prototype.tls_opts_set = function(reqs, version, ciphers) {
-    return this.mqtt.tls_opts_set(reqs, version, ciphers);
-}
-
-Mqtt.prototype.tls_psk_set = function(key, identity, ciphers) {
-    return this.mqtt.tls_psk_set(key, identity, ciphers);
 }
 
 Mqtt.prototype.connect = function(host, port, callback) {
