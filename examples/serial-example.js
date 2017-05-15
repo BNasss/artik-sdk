@@ -3,20 +3,20 @@ const artik_serial = require('../src/serial');
 
 const name = artik.get_platform_name();
 
-if(name == 'Artik 520') {
-	console.log("Running SERIAL test on Artik 520");
+if(name == 'ARTIK 520') {
+	console.log("Running SERIAL test on ARTIK 520");
 	const a5 = require('../src/platform/artik520');
 	var port = a5.ARTIK_A5_SERIAL.SCOM.XSCOM4
-} else if(name == 'Artik 1020') {
-	console.log("Running SERIAL test on Artik 1020");
+} else if(name == 'ARTIK 1020') {
+	console.log("Running SERIAL test on ARTIK 1020");
 	const a10 = require('../src/platform/artik1020');
 	var port = a10.ARTIK_A10_SERIAL.SCOM.XSCOM2;
-} else if(name == 'Artik 710') {
-	console.log("Running SERIAL test on Artik 710");
+} else if(name == 'ARTIK 710') {
+	console.log("Running SERIAL test on ARTIK 710");
 	const a7 = require('../src/platform/artik710');
 	var port = a7.ARTIK_A710_SERIAL.UART.UART0;
-} else if(name == 'Artik 530') {
-	console.log("Running SERIAL test on Artik 530");
+} else if(name == 'ARTIK 530') {
+	console.log("Running SERIAL test on ARTIK 530");
 	const a530 = require('../src/platform/artik530');
 	var port = a530.ARTIK_A530_SERIAL.UART.UART4;
 }

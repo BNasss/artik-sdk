@@ -31,7 +31,7 @@ to uniquely identify each side. The possible value for this field is "client" or
 **Example**
 
 ```javascript
-var profile = new bluetooth.SppProfile("Artik SPP", "spp char loopback", "server", 22, 3, true, false, true, 10, 20);
+var profile = new bluetooth.SppProfile("ARTIK SPP", "spp char loopback", "server", 22, 3, true, false, true, 10, 20);
 ```
 
 ## class SppSocket

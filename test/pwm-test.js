@@ -21,20 +21,20 @@ testCase('PWM', function() {
 	pre(function() {
 		const name = artik.get_platform_name();
 
-		if(name == 'Artik 520') {
-			console.log('Running PWM test on Artik 520');
+		if(name == 'ARTIK 520') {
+			console.log('Running PWM test on ARTIK 520');
 			const a5 = require('../src/platform/artik520');
 			pwm = artik.pwm(a5.ARTIK_A5_PWM.PWMIO.XPWMIO1, "pwm-test", 400000, a5.ARTIK_A5_PWM.POLR.NORMAL, 200000);
-		} else if(name == 'Artik 1020') {
-			console.log('Running PWM test on Artik 1020');
+		} else if(name == 'ARTIK 1020') {
+			console.log('Running PWM test on ARTIK 1020');
 			const a10 = require('../src/platform/artik1020');
 			pwm = artik.pwm(a10.ARTIK_A10_PWM.PWMIO.XPWMIO1, "pwm-test", 400000, a10.ARTIK_A10_PWM.POLR.NORMAL, 200000);
-		} else if(name == 'Artik 710') {
-			console.log('Running PWM test on Artik 710');
+		} else if(name == 'ARTIK 710') {
+			console.log('Running PWM test on ARTIK 710');
 			const a7 = require('../src/platform/artik710');
 			pwm = artik.pwm(a7.ARTIK_A710_PWM.PWMIO.XPWMIO1, "pwm-test", 400000, a7.ARTIK_A710_PWM.POLR.NORMAL, 200000);
-		} else if(name == 'Artik 530') {
-			console.log('Running PWM test on Artik 530');
+		} else if(name == 'ARTIK 530') {
+			console.log('Running PWM test on ARTIK 530');
 			const a530 = require('../src/platform/artik530');
 			pwm = artik.pwm(a530.ARTIK_A530_PWM.PWMIO.XWMIO0, "pwm-test", 400000, a530.ARTIK_A530_PWM.POLR.NORMAL, 200000);
 		}

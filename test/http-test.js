@@ -14,7 +14,7 @@ var artik      = require('../lib/artik-sdk');
 /* Test Specific Includes */
 var http = artik.http();
 var headers = [
-	"user-agent", "Artik browser",
+	"user-agent", "ARTIK browser",
 	"Accept-Language", "en-US,en;q=0.8"
 ];
 var body = "name=samsung&project=artik";

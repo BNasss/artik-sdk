@@ -1,7 +1,7 @@
 var bluetooth = require('../src/bluetooth');
 
 var tx_buff = new Buffer('aabbccddeeff');
-var profile = new bluetooth.SppProfile("Artik SPP", "spp char loopback", "server", 22, 3, true, false, true, 10, 20);
+var profile = new bluetooth.SppProfile("ARTIK SPP", "spp char loopback", "server", 22, 3, true, false, true, 10, 20);
 var spp = new bluetooth.Spp();
 
 spp.on("new_connection", function(spp_socket) {

@@ -3,7 +3,7 @@ const artik = require('../lib/artik-sdk');
 var http = artik.http();
 
 var headers = [
-	"user-agent", "Artik browser",
+	"user-agent", "ARTIK browser",
 	"Accept-Language", "en-US,en;q=0.8"
 ];
 

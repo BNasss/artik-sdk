@@ -4,34 +4,37 @@ var button, red, green, blue;
 
 const name = artik.get_platform_name();
 
-if(name == 'Artik 520') {
-	console.log('Running GPIO test on Artik 520');
+if(name == 'ARTIK 520') {
+	console.log('Running GPIO test on ARTIK 520');
 	const a5 = require('../src/platform/artik520');
 	red = new gpio(a5.ARTIK_A5_GPIO_XEINT0, 'red', 'out', 'none', 0);
 	green = new gpio(a5.ARTIK_A5_GPIO_XEINT1, 'green', 'out', 'none', 0);
 	blue = new gpio(a5.ARTIK_A5_GPIO_XEINT2, 'blue', 'out', 'none', 0);
 	button = new gpio(a5.ARTIK_A5_GPIO_XEINT3, 'button', 'in' , 'both', 0);
-} else if(name == 'Artik 1020') {
-	console.log('Running GPIO test on Artik 1020');
+} else if(name == 'ARTIK 1020') {
+	console.log('Running GPIO test on ARTIK 1020');
 	const a10 = require('../src/platform/artik1020');
 	red = new gpio(a10.ARTIK_A10_GPIO_XEINT0, 'red', 'out', 'none', 0);
 	green = new gpio(a10.ARTIK_A10_GPIO_XEINT1, 'green', 'out', 'none', 0);
 	blue = new gpio(a10.ARTIK_A10_GPIO_XEINT2, 'blue', 'out', 'none', 0);
 	button = new gpio(a10.ARTIK_A10_GPIO_XEINT3, 'button', 'in' , 'both', 0);
-} else if(name == 'Artik 710') {
-	console.log('Running GPIO test on Artik 710');
+} else if(name == 'ARTIK 710') {
+	console.log('Running GPIO test on ARTIK 710');
 	const a7 = require('../src/platform/artik710');
 	red = new gpio(a7.ARTIK_A710_GPIO_GPIO0, 'red', 'out', 'none', 0);
 	green = new gpio(a7.ARTIK_A710_GPIO_GPIO1, 'green', 'out', 'none', 0);
 	blue = new gpio(a7.ARTIK_A710_GPIO_GPIO2, 'blue', 'out', 'none', 0);
 	button = new gpio(a7.ARTIK_A710_GPIO_GPIO4, 'button', 'in' , 'both', 0);
-} else if(name == 'Artik 530') {
-	console.log('Running GPIO test on Artik 530');
+} else if(name == 'ARTIK 530') {
+	console.log('Running GPIO test on ARTIK 530');
 	const a530 = require('../src/platform/artik530');
 	red = new gpio(a530.ARTIK_A530_GPIO_GPIO0, 'red', 'out', 'none', 0);
 	green = new gpio(a530.ARTIK_A530_GPIO_GPIO1, 'green', 'out', 'none', 0);
 	blue = new gpio(a530.ARTIK_A530_GPIO_GPIO2, 'blue', 'out', 'none', 0);
 	button = new gpio(a530.ARTIK_A530_GPIO_GPIO4, 'button', 'in' , 'both', 0);
+} else {
+    console.log('Unrecognized platform');
+    process.exit(-1);
 }
 
 button.on('changed', function(val) {

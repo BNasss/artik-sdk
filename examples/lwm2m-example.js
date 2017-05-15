@@ -4,13 +4,13 @@ var lwm2m = new(require('../src/lwm2m.js'))();
 var server_id = 123;
 var server_uri = 'coaps://coaps-api.artik.cloud:5686';
 var lifetime = 30;
-var dtls_psk_id = '< DM enabled Artik Cloud Device ID >';
-var dtls_psk_key = '< DM enabled Artik Cloud Device Token >';
+var dtls_psk_id = '< DM enabled ARTIK Cloud Device ID >';
+var dtls_psk_key = '< DM enabled ARTIK Cloud Device Token >';
 
 var objects = {
     device: {
         manufacturer: 'Samsung',
-        model: 'Artik',
+        model: 'ARTIK',
         serial: '1234567890',
         fwVersion: '1.0',
         hwVersion: '1.0',

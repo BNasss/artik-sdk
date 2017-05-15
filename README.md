@@ -1,5 +1,5 @@
 # ARTIK-SDK
-   > This README explains how to use the node.js module for using the Artik SDK with JavaScript.
+   > This README explains how to use the node.js module for using the ARTIK SDK with JavaScript.
 
 ## 1. Base
    * [Time API](/doc/TIME_README.md)
@@ -15,7 +15,7 @@
    * [Bluetooth SPP API](/doc/bluetooth/SPP_README.md)
 
 ## 3. Connectivity
-   * [Artik Cloud API](/doc/CLOUD_README.md)
+   * [ARTIK Cloud API](/doc/CLOUD_README.md)
    * [HTTP API](/doc/HTTP_README.md)
    * [Network API](/doc/NETWORK_README.md)
    * [Websocket API](/doc/WEBSOCKET_README.md)

@@ -23,7 +23,7 @@ var dtls_psk_key = process.env.LWM2M_DEVICE_TOKEN;
 var objects = {
     device: {
         manufacturer: 'Samsung',
-        model: 'Artik',
+        model: 'ARTIK',
         serial: '1234567890',
         fwVersion: '1.0',
         hwVersion: '1.0',

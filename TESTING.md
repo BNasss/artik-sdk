@@ -1,4 +1,4 @@
-# Artik SDK Automated Test Framework
+# ARTIK SDK Automated Test Framework
 
 The artik-sdk uses the mochajs test framework for testing. The unit test are present in the test/ directory.
 

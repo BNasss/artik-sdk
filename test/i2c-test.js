@@ -21,16 +21,16 @@ testCase('I2C', function() {
 	pre(function() {
 		const name = artik.get_platform_name();
 
-		if(name == 'Artik 520') {
-			console.log('Running I2C test on Artik 520');
-		} else if(name == 'Artik 1020') {
-			console.log('Running I2C test on Artik 1020');
+		if(name == 'ARTIK 520') {
+			console.log('Running I2C test on ARTIK 520');
+		} else if(name == 'ARTIK 1020') {
+			console.log('Running I2C test on ARTIK 1020');
 			cw2015 = artik.i2c(0, 2000, '8', 0x62);
-		} else if(name == 'Artik 710') {
-			console.log('Running I2C test on Artik 710');
+		} else if(name == 'ARTIK 710') {
+			console.log('Running I2C test on ARTIK 710');
 			cw2015 = artik.i2c(8, 2000, '8', 0x62);
-		} else if(name == 'Artik 530') {
-			console.log('Running I2C test on Artik 530');
+		} else if(name == 'ARTIK 530') {
+			console.log('Running I2C test on ARTIK 530');
 			cw2015 = artik.i2c(8, 2000, '8', 0x62);
 		}
 

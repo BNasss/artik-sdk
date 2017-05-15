@@ -30,7 +30,7 @@ testCase('Cloud', function() {
 
 	testCase('#get_current_user_profile()', function() {
 
-		assertions('Get User Profile - Should return Artik Cloud User profile', function(done) {
+		assertions('Get User Profile - Should return ARTIK Cloud User profile', function(done) {
 			if (!auth_token || !auth_token.length)
 				this.skip();
 
@@ -55,7 +55,7 @@ testCase('Cloud', function() {
 
 	testCase('#get_device_token()', function() {
 
-		assertions('Get Device Token - Should return the artik cloud device token ', function(done) {
+		assertions('Get Device Token - Should return the ARTIK cloud device token ', function(done) {
 
 			if (!auth_token || !device_id || !auth_token.length || !device_id.length)
 				this.skip();
@@ -64,7 +64,7 @@ testCase('Cloud', function() {
 			done();
 		});
 
-		assertions('Get Device Token Callback - Should return the callback with artik cloud device token', function(done) {
+		assertions('Get Device Token Callback - Should return the callback with ARTIK cloud device token', function(done) {
 
 			if (!auth_token || !device_id || !auth_token.length || !device_id.length)
 				this.skip();

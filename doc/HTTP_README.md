@@ -17,7 +17,7 @@ Perform a GET HTTP request on a remote host.
 
 ```javascript
 var headers = [
-	"user-agent", "Artik browser",
+	"user-agent", "ARTIK browser",
 	"Accept-Language", "en-US,en;q=0.8"
 ];
 ```
@@ -97,7 +97,7 @@ Perform a POST HTTP request on a remote host.
 
 ```javascript
 var headers = [
-	"user-agent", "Artik browser",
+	"user-agent", "ARTIK browser",
 	"Accept-Language", "en-US,en;q=0.8"
 ];
 ```
@@ -178,7 +178,7 @@ Perform a PUT HTTP request on a remote host.
 
 ```javascript
 var headers = [
-	"user-agent", "Artik browser",
+	"user-agent", "ARTIK browser",
 	"Accept-Language", "en-US,en;q=0.8"
 ];
 ```
@@ -259,7 +259,7 @@ Perform a DELETE HTTP request on a remote host.
 
 ```javascript
 var headers = [
-	"user-agent", "Artik browser",
+	"user-agent", "ARTIK browser",
 	"Accept-Language", "en-US,en;q=0.8"
 ];
 ```
